@@ -48,10 +48,14 @@ public class takeQuiz {
 
     if (correctAnswers.indexOf(userAnswer) == questionNumber) {
       System.out.println("Correct!");
+      System.out.println();
     }
 
     else {
       System.out.println("Incorrect!");
+      System.out.print("The correct answer was: "+ correctAnswers.get(questionNumber));
+      System.out.println();
+      System.out.println();
     }
 
   }
