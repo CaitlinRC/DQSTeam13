@@ -1,3 +1,11 @@
-Is this module stupid?, Yes/, No
-Is this the second question?, Yes/, No
-Are we making progress?, Yes, No/
+Is this module stupid?
+Yes*-
+No*
+
+Is this the second question?
+Yes*-
+No*
+
+Are we making progress?
+Hopefully*
+No*-
