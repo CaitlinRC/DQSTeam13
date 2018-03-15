@@ -2,6 +2,7 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*; // Imports modules to deal with files, exceptions, user input and ArrayLists
+// * = answer - = correct answer
 
 public class takeQuiz {
 
