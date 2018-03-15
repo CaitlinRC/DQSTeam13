@@ -1,59 +1,54 @@
 import java.util.Scanner;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.PrintWriter;
-import java.io.IOException;
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.*; // Imports modules to deal with files, exceptions, user input and ArrayLists
 
 public class takeQuiz {
 
-  public takeQuiz(String fileName) {
+  public takeQuiz(String fileName) { // takes the filename "quiz.txt"
 
     try {
-      File fileIn = new File(fileName);
-      Scanner in = new Scanner(fileIn);;
+      File fileIn = new File(fileName); // opens the file
+      Scanner in = new Scanner(fileIn); // creates a new instance of Scanner (for file)
 
-      String question;
-      ArrayList correctAnswers = new ArrayList();
-      int questionNumber = 0;
+      ArrayList correctAnswers = new ArrayList(); // creates list of correctAnswers
+      int questionNumber = 0; // keeps track of current question
 
-    while (in.hasNextLine()) {
-      // Maybe do text file with stop words?
+    while (in.hasNextLine()) { // while file has another line
       String line = in.nextLine();
-      String testEmpty = line.replaceAll("\"", "");
+      String testEmpty = line.replaceAll("\"", ""); // removes spaces from the line
 
-      if (testEmpty.isEmpty() == false) {
-        printValues(line, correctAnswers);
+      if (testEmpty.isEmpty() == false) { // if its a blank line (no spaces)
+        printValues(line, correctAnswers); // calls printvalues
     }
       else {
-        getAnswer(correctAnswers, questionNumber);
-        questionNumber += 1;
+        getAnswer(correctAnswers, questionNumber); // calls getAnswer
+        questionNumber += 1; // moves to next question
       }
   }
-  getAnswer(correctAnswers, questionNumber);
+  getAnswer(correctAnswers, questionNumber); // CURRENT FIX FOR NOT CALLING GET ANSWER ON LAST LINE OF FILE
 }
 
-    catch (FileNotFoundException e){
+    catch (FileNotFoundException e){ // if the quiz txt file is not present
       System.out.println("Problem");
     }
   }
 
   public void getAnswer(ArrayList correctAnswers, int questionNumber) {
-    Scanner userInput = new Scanner(System.in);
+    Scanner userInput = new Scanner(System.in); // new instance of Scanner (for user input)
     System.out.println("Enter your answer: ");
-    String userAnswer = userInput.nextLine();
+    String userAnswer = userInput.nextLine(); // asks for user inputs
 
-    userAnswer = userAnswer.replaceAll("\\pP", "");
+    userAnswer = userAnswer.replaceAll("\\pP", ""); // replaces all punctuation
 
-    if (correctAnswers.indexOf(userAnswer) == questionNumber) {
+    if (correctAnswers.indexOf(userAnswer) == questionNumber) { // if the question number matches the index (1st index=answer for first question)
       System.out.println("Correct!");
       System.out.println();
     }
 
     else {
       System.out.println("Incorrect!");
-      System.out.print("The correct answer was: "+ correctAnswers.get(questionNumber));
+      System.out.print("The correct answer was: "+ correctAnswers.get(questionNumber)); // retrieves correct answer
       System.out.println();
       System.out.println();
     }
@@ -66,7 +61,7 @@ public class takeQuiz {
       System.out.println(line.replaceAll("\\pP", "")); // strips punctuation
 
       if (line.contains("-")) {
-        correctAnswers.add(line.replaceAll("\\pP", ""));
+        correctAnswers.add(line.replaceAll("\\pP", "")); // strips punctuation and appends to correct answers
       }
     }
     else {
