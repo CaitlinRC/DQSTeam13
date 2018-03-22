@@ -14,3 +14,9 @@ Is this a new question?
 Yes*
 No*
 Of Course*-
+
+Can the program handle four answers?
+I don't know*
+Hopefully*
+Yes*-
+Never*
