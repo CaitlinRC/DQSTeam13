@@ -20,3 +20,5 @@ OR Would it just be easier to compare user input directly to correctAnswers(ques
 Minor changes?
 - Would it just be easier to let user choose answer with [a, b, c, d] or [1, 2, 3, 4]
 	- Might make the comparison a tad harder but still
+- Should this be able to deal with multiple correct answers?
+	- the whole correctAnswers arraylist would be screwed

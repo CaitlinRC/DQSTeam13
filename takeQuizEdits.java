@@ -4,9 +4,9 @@ import java.io.FileNotFoundException;
 import java.util.*; // Imports modules to deal with files, exceptions, user input and ArrayLists
 // * = answer - = correct answer
 
-public class takeQuiz {
+public class takeQuizEdits {
 
-  public takeQuiz(String fileName) { // takes the filename "quiz.txt"
+  public takeQuizEdits(String fileName) { // takes the filename "quiz.txt"
 
     try {
       File fileIn = new File(fileName); // opens the file
@@ -27,7 +27,7 @@ public class takeQuiz {
         questionNumber += 1; // moves to next question
       }
   }
-  getAnswer(correctAnswers, questionNumber); // CURRENT FIX FOR NOT CALLING GET ANSWER ON LAST LINE OF FILE
+  // getAnswer(correctAnswers, questionNumber); // CURRENT FIX FOR NOT CALLING GET ANSWER ON LAST LINE OF FILE
 }
 
     catch (FileNotFoundException e){ // if the quiz txt file is not present
