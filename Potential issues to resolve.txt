@@ -12,3 +12,11 @@ takeQuiz.java:
 		// Currently each correct answer is added one at a time, only just before the question is answered by the user (in printValues()) 
 		// Could be changed to make it a single variable rather than keeping a list (bc is the list really necessary at that point?)
 		// Would allow for it to be directly compared rather than checking for indices
+
+
+OR Would it just be easier to compare user input directly to correctAnswers(questionNumber)????
+
+
+Minor changes?
+- Would it just be easier to let user choose answer with [a, b, c, d] or [1, 2, 3, 4]
+	- Might make the comparison a tad harder but still
