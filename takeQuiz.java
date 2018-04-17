@@ -1,13 +1,29 @@
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.*; // Imports modules to deal with files, exceptions, user input and ArrayLists
+import java.util.ArrayList;
+// import java.util.*; // Imports modules to deal with files, exceptions, user input and ArrayLists
 // * = answer - = correct answer
 
 public class takeQuiz {
 
   public takeQuiz(String fileName) { // takes the filename "quiz.txt"
+    FileHandler files = new FileHandler();
+    ArrayList<Question> currentQuiz = new ArrayList<Question>;
+    try {
+      currentQuiz = files.readFromFile(fileName);
+    } catch (IOException e) {
+      System.out.println("Sorry there was a problem");
+      e.printStackTrace();
+    }
+    
+    boolean correct = false;
+    for (int i = 0; int < currentQuiz.size(); i++) {
+      correct = getAnswer(currentQuiz.get(i));
+      // Do whatever you want with statistics here I think? (like increment correct answers if correct == true) 
+    }
 
+  /* Caitlin's code
     try {
       File fileIn = new File(fileName); // opens the file
       Scanner in = new Scanner(fileIn); // creates a new instance of Scanner (for file)
@@ -33,15 +49,14 @@ public class takeQuiz {
     catch (FileNotFoundException e){ // if the quiz txt file is not present
       System.out.println("Problem");
     }
+  */
   }
 
-  public void getAnswer(ArrayList correctAnswers, int questionNumber) {
+  public boolean getAnswer(Question inQuestion) {
     Scanner userInput = new Scanner(System.in); // new instance of Scanner (for user input)
-    System.out.println("Enter your answer: ");
+    System.out.println("Enter your answer [1 to " + inQuestion.getNumberOfAnswers() + "]: ");
     String userAnswer = userInput.nextLine(); // asks for user inputs
-
-    userAnswer = userAnswer.replaceAll("\\pP", ""); // replaces all punctuation
-
+    /* Caitlin's code
     if (correctAnswers.indexOf(userAnswer) == questionNumber) { // if the question number matches the index (1st index=answer for first question)
       // Potential issue could be caused if the same correct answer is in multiple Qs
       // indexOf will return the FIRST index with the answer
@@ -56,10 +71,21 @@ public class takeQuiz {
       System.out.println();
       System.out.println();
     }
-
+    */
+    if (inQuestion.isCorrect(userAnswer) == true) {
+      System.out.println("Correct!");
+      System.out.println();
+      return true;
+    } else {
+      System.out.println("Incorrect!");
+      System.out.print("The correct answer was: "+ inQuestion.getCorrectAnswer());
+      System.out.println();
+      return false;
+    }
 
   }
 
+  /*
   public void printValues(String line, ArrayList correctAnswers) {
 
     if (line.contains("*")) {
@@ -73,4 +99,5 @@ public class takeQuiz {
       System.out.println(line);
     }
   }
+  */
 }
