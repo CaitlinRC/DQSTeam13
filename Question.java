@@ -35,8 +35,8 @@ public class Question {
 	public boolean isCorrect(String userInput) {
 		userInput = userInput.trim();
 		userInput = userInput.replaceAll("\\pP", ""); // replaces all punctuation
-		userInputValue = parseInt(userInput);
-		if correctPos == userInputValue {
+		int userInputValue = Integer.parseInt(userInput);
+		if (correctPos == userInputValue) {
 			return true;
 		}
 		return false;
@@ -49,7 +49,7 @@ public class Question {
 		for (int i = 0; i < answerList.size(); i++) {
 			temp.append((i + 1) + ". " + answerList.get(i) + "\n");
 		}
-		temp.append("\n");
+		//temp.append("\n");
 		return temp.toString();
 	}
 
@@ -63,7 +63,7 @@ public class Question {
 				temp.append(answerList.get(i) + "*\n");
 			}
 		}
-		temp.append("\n");
+		//temp.append("\n");
 		return temp.toString();
 	}
 }

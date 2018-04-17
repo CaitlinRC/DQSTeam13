@@ -62,8 +62,6 @@ public class FileHandler {
                 			}
                 		} else {
                 			isAnswers = false;
-                			System.out.println(questionText);
-                			System.out.println(tempCorrectPos);
                 			tempQuestion = new Question(questionText, tempAnswerList, tempCorrectPos);
                 			returnList.add(tempQuestion);
                 			questionText = "";
@@ -72,10 +70,7 @@ public class FileHandler {
                 			tempQuestion = new Question();
                 		}
                 	}
-                	//System.out.println(line);
                 }
-                // System.out.println(questionText);
-        	// System.out.println(tempCorrectPos);
         	tempQuestion = new Question(questionText, tempAnswerList, tempCorrectPos);
         	returnList.add(tempQuestion);
                 br.close(); 
