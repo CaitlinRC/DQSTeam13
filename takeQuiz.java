@@ -7,8 +7,21 @@ import java.io.IOException;
 
 public class takeQuiz {
 
-  public takeQuiz(String fileName) { // takes the filename "quiz.txt"
+  public takeQuiz() { // takes the filename "quiz.txt"
     FileHandler files = new FileHandler();
+    String fileName = files.getQuizFileName("Which quiz do you want to play "); 
+    System.out.println(fileName);
+    ArrayList<Question> currentQuiz = new ArrayList<Question>();
+    currentQuiz = getQuiz(fileName, files);
+    
+    boolean correct = false;
+    for (int i = 0; i < currentQuiz.size(); i++) {
+      correct = getAnswer(currentQuiz.get(i));
+      // Do whatever you want with statistics here I think? (like increment correct answers if correct == true) 
+    }
+  }
+
+  public ArrayList<Question> getQuiz(String fileName, FileHandler files) {
     ArrayList<Question> currentQuiz = new ArrayList<Question>();
     try {
       currentQuiz = files.readFromFile(fileName);
@@ -16,12 +29,7 @@ public class takeQuiz {
       System.out.println("Sorry there was a problem");
       e.printStackTrace();
     }
-    
-    boolean correct = false;
-    for (int i = 0; i < currentQuiz.size(); i++) {
-      correct = getAnswer(currentQuiz.get(i));
-      // Do whatever you want with statistics here I think? (like increment correct answers if correct == true) 
-    }
+    return currentQuiz;
   }
 
   public boolean getAnswer(Question inQuestion) {

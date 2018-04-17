@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 // no clue why my indents got all whack on this file
 public class FileHandler {
@@ -75,6 +76,28 @@ public class FileHandler {
         	returnList.add(tempQuestion);
                 br.close(); 
         	return returnList;
+        }
+
+        public void displayQuizList(File directory) {
+                String fileName = "";
+                for (int i = 0; i < directory.list().length; i++) {
+                        fileName = directory.list()[i];
+                        System.out.println((i + 1) + ". " + fileName.substring(0, fileName.length() - 4));
+                }
+                System.out.println("");
+        }
+
+        public String getQuizFileName(String prompt) {
+                File dir = new File("Files/");
+                String fileName = "";
+                Scanner userInput = new Scanner(System.in);
+
+                System.out.println(prompt + "[1 to " + dir.list().length + "]: ");
+                displayQuizList(dir);
+                String userOption = userInput.nextLine();
+                fileName = dir.list()[Integer.parseInt(userOption) - 1];
+                fileName = fileName.substring(0, fileName.length() - 4);
+                return fileName;
         }
 
 }
