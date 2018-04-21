@@ -9,8 +9,8 @@ public class takeQuiz {
   int numberCorrect = 0;
   int totalAnswers = 0;
 
-  public takeQuiz() { // takes the filename "quiz.txt"
-
+  public takeQuiz() {
+    // Prompt user for their school and year group
     FileHandler files = new FileHandler();
     String fileName = files.getQuizFileName("Which quiz do you want to play ");
     System.out.println(fileName);
