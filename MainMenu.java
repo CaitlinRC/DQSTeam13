@@ -1,6 +1,7 @@
 public class MainMenu {
 
 	public static void main(String[] args) {
+		// Prompt for input of schools and year groups attending event
 		while (true) {
 			mainMenu();
 		}
@@ -15,7 +16,7 @@ public class MainMenu {
 	}
 
 	private int getMenuOption() {
-		String userInput = getInputInRange(1, 9 /* 9 is just a temporary value */);
+		String userInput = getInputInRange(1, 3);
 		int userOption = Integer.parseInt(userInput);
 		return userOption;
 	}
@@ -27,8 +28,10 @@ public class MainMenu {
 			if (userOption == 1) {
 				new takeQuiz();
 			} else if (userOption == 2) {
-				// edit quiz - prompts user to pick a file they want to edit questions for, they can edit the quiz, save it etc.
-			} /* and so on */
+				// admin log in
+			} else if (userOption == 3) {
+				System.exit(0); // closes program - idk whether to put this here or in admin menu so students won't close it, or if to include this at all
+			}
 
 	}
 }
