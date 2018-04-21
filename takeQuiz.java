@@ -6,19 +6,25 @@ import java.io.IOException;
 // * = answer, - = correct answer
 
 public class takeQuiz {
+  int numberCorrect = 0;
+  int totalAnswers = 0;
 
   public takeQuiz() { // takes the filename "quiz.txt"
+
     FileHandler files = new FileHandler();
-    String fileName = files.getQuizFileName("Which quiz do you want to play "); 
+    String fileName = files.getQuizFileName("Which quiz do you want to play ");
     System.out.println(fileName);
     ArrayList<Question> currentQuiz = new ArrayList<Question>();
     currentQuiz = getQuiz(fileName, files);
-    
+
     boolean correct = false;
     for (int i = 0; i < currentQuiz.size(); i++) {
       correct = getAnswer(currentQuiz.get(i));
-      // Do whatever you want with statistics here I think? (like increment correct answers if correct == true) 
+      // Do whatever you want with statistics here I think? (like increment correct answers if correct == true)
     }
+
+    System.out.println("Quiz Finished!");
+    System.out.println("Your Score: " + numberCorrect + "/" + totalAnswers); // produces score if someone finished the queue
   }
 
   public ArrayList<Question> getQuiz(String fileName, FileHandler files) {
@@ -35,13 +41,18 @@ public class takeQuiz {
   public boolean getAnswer(Question inQuestion) {
     Scanner userInput = new Scanner(System.in); // new instance of Scanner (for user input)
     System.out.print(inQuestion);
-    System.out.println("Enter your answer [1 to " + inQuestion.getNumberOfAnswers() + "]: ");
+    totalAnswers += 1;
+    System.out.println("Enter your answer [1 to " + inQuestion.getNumberOfAnswers() + "]: (Enter 0 To Restart The Application)");
     String userAnswer = userInput.nextLine(); // asks for user inputs
+
     if (inQuestion.isCorrect(userAnswer) == true) {
       System.out.println("Correct!");
       System.out.println();
+      numberCorrect += 1;
       return true;
-    } else {
+    }
+
+     else {
       System.out.println("Incorrect!");
       System.out.print("The correct answer was: "+ inQuestion.getCorrectAnswer());
       System.out.println();
