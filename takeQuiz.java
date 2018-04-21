@@ -8,6 +8,7 @@ import java.io.IOException;
 public class takeQuiz {
   int numberCorrect = 0;
   int totalAnswers = 0;
+  String restart = "";
 
   public takeQuiz() {
     // Prompt user for their school and year group
@@ -19,7 +20,17 @@ public class takeQuiz {
 
     boolean correct = false;
     for (int i = 0; i < currentQuiz.size(); i++) {
+      restart = "";
       correct = getAnswer(currentQuiz.get(i));
+
+      if (restart.equals("0")) {
+        i = -1;
+        numberCorrect = 0;
+        totalAnswers = 0;
+        System.out.println();
+        System.out.println("Restarting Quiz");
+        System.out.println();
+      }
       // Do whatever you want with statistics here I think? (like increment correct answers if correct == true)
     }
 
@@ -42,7 +53,7 @@ public class takeQuiz {
     Scanner userInput = new Scanner(System.in); // new instance of Scanner (for user input)
     System.out.print(inQuestion);
     totalAnswers += 1;
-    System.out.println("Enter your answer [1 to " + inQuestion.getNumberOfAnswers() + "]: (Enter 0 To Restart The Application)");
+    System.out.println("Enter your answer [1 to " + inQuestion.getNumberOfAnswers() + "]: (Enter 0 To Restart The Quiz)");
     String userAnswer = userInput.nextLine(); // asks for user inputs
 
     if (inQuestion.isCorrect(userAnswer) == true) {
@@ -50,6 +61,11 @@ public class takeQuiz {
       System.out.println();
       numberCorrect += 1;
       return true;
+    }
+
+    else if (userAnswer.equals("0")) {
+      restart = "0";
+      return false;
     }
 
      else {
