@@ -1,7 +1,17 @@
 public class runQuiz {
 
   public static void main(String args[]) {
-
-    new takeQuiz();
+	 Menus menus = new Menus();
+  	// Main program loop
+  	while(true) {
+  		switch (menus.getMenu()) {
+		    	case "main":
+		    		menus.mainMenu();
+			    	break;
+		    	//case "admin":
+		    		//menus.adminMenu();
+		    		//break;
+  		}
+  	}
   }
 }
