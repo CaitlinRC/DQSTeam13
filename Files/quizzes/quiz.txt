@@ -1,4 +1,4 @@
-Is this module stupid?
+Is this sky blue?
 Yes*-
 No*
 
@@ -6,17 +6,17 @@ Is this the second question?
 Yes*-
 No*
 
-Are we making progress?
-Hopefully*
-No*-
+What is the name of our planet?
+Mars*
+Earth*-
 
-Is this a new question?
-Yes*
-No*
-Of Course*-
+What is the meaning of life?
+Cheese*
+Computing*
+42*-
 
-Can the program handle four answers?
-I don't know*
-Hopefully*
-Yes*-
-Never*
+Which of these is not one of our modules?
+Developing Quality Software*
+Problem Solving With Python*
+Historical Fiction*-
+Maths For Computer Science*
