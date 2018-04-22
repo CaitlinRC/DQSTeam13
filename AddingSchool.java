@@ -4,7 +4,7 @@ import java.io.FileWriter;
 import java.io.*;
 
 public class AddingSchool {
-	public static void main(String[] args) {
+	public void Added() {
 		Scanner input = new Scanner(System.in);
 		School school = new School();
 

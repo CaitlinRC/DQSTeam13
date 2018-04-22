@@ -5,7 +5,7 @@ import java.io.IOException;
 
 public class DisplaySchool {
 
-	public static void main(String[] args) {
+	public void Display() {
 	try {
 		File file = new File("Schools.txt");
 		FileReader filereader = new FileReader("Schools.txt");

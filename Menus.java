@@ -65,8 +65,19 @@ public class Menus {
 	    		// call method for editing quiz
 	    		break;
 	    	// Logout
-	    	case "3":
+	    	case "5":
 	    		setMenu("main");
+	    		break;
+	    	case "3":
+	    	//This function is for calling for a new school to be added
+	    		AddingSchool addingschool = new AddingSchool();
+	    		addingschool.Added();
+	    		break;
+
+	    	case "4":
+	    	//this functions displays all current people inside of the list
+	    		DisplaySchool displayschool = new DisplaySchool();
+	    		displayschool.Display();
 	    		break;
 	    	// Handle invalid input	
 	    	default:
