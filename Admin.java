@@ -15,7 +15,6 @@ public class Admin {
 			directory.mkdir();
 			File file = new File(file_path);
 
-
 			boolean isFileNew = file.createNewFile();
 
 			return isFileNew;
@@ -26,7 +25,6 @@ public class Admin {
 	}
 //main function to call when loggin in
 	public static boolean adminLogin() {
-		
 
 		System.out.print("\n Admin ID: ");
 		String _adminID = in.nextLine();
@@ -38,7 +36,7 @@ public class Admin {
 		System.out.print(" Password: ");
 		String _password = in.nextLine();
 		while (_password.length()<6) {
-			System.out.println("\nInvalid password.\n Password: ");
+			System.out.print("\nInvalid password.\n Password: ");
 			_password = in.nextLine();
 		}
 
@@ -89,7 +87,7 @@ public class Admin {
 		System.out.print("Enter password (Requirements: minimum of 6 characters): ");
 		String _password = in.nextLine();
 		while (_password.length()<6) {
-			System.out.println("\nInvalid password.\nEnter password (Requirements: minimum of 6 characters): ");
+			System.out.print("\nInvalid password.\nEnter password (Requirements: minimum of 6 characters): ");
 			_password = in.nextLine();
 		}
 
@@ -129,6 +127,7 @@ public class Admin {
 					break;
 
 				case 2:
+					AdminFileHandler.deleteQuestion(file_name);
 					//to do
 					break;
 

@@ -36,6 +36,10 @@ public class Quiz {
 		questions.add(question);
 	}
 
+	public void deleteQuestionByIndex(int position) {
+		questions.remove(position);
+	}		
+
 	// Used for creating a deep copy of a quiz object. The .clone method only creates a shallow copy	
     public Quiz copy() {
     	Quiz quizCopy = new Quiz();

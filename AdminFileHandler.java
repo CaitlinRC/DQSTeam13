@@ -2,6 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class AdminFileHandler {
+
 	public static void addQuestion(String file_path) {
 		Scanner in = new Scanner(System.in);
 
@@ -47,4 +48,32 @@ public class AdminFileHandler {
 			System.out.println("\nUnable to add question into the database.\n");
 		}
 	}
+
+    public static void deleteQuestion(String file_name) {
+    	Scanner in = new Scanner(System.in);
+    	FileHandler file = new FileHandler();
+    	Quiz current_quiz = new Quiz();
+
+    	try {
+    		current_quiz = file.readFromFile(file_name);
+
+    		System.out.print("\nEnter the position of the question you want to be removed (choose between: 1 - " + current_quiz.getQuestions().size() + "): ");
+			while (!in.hasNextInt()) { //|| !(in.nextInt()<=current_quiz.getQuestions().size()) || !(in.nextInt()>=1)) {
+				System.out.println("\nInvalid Selection.");
+				System.out.print("Enter the position of the question you want to be removed (choose between: 1 - " + current_quiz.getQuestions().size() + "): ");
+				in.next();
+			}		
+			int _input = in.nextInt();
+			try {
+    			current_quiz.deleteQuestionByIndex(_input-1);
+			} catch (IndexOutOfBoundsException e) {
+				System.out.println("\nQuestion does not exist. Therefore, can not be deleted.\n");
+			}
+    		file.saveCurrentQuiz(current_quiz.getQuestions(), file_name);
+    		System.out.println("\n" + "Successfully deleted a question." + "\n");
+    	} catch (IOException e) {
+    		System.out.println("\nUnable to read into the class.\n");
+    	}
+    }
 }
+

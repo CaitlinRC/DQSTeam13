@@ -69,15 +69,14 @@ public class Question {
 
 	public String toFileString() {
 		StringBuffer temp = new StringBuffer();
-		temp.append(questionText + "\n");
+		temp.append(questionText + "\r\n");
 		for (int i = 0; i < answerList.size(); i++) {
 			if (i == getCorrectPos()) {
-				temp.append(answerList.get(i).getTitle() + "*-\n");
+				temp.append(answerList.get(i).getTitle() + "*-\r\n");
 			} else {
-				temp.append(answerList.get(i).getTitle() + "*\n");
+				temp.append(answerList.get(i).getTitle() + "*\r\n");
 			}
 		}
-		//temp.append("\n");
 		return temp.toString();
 	}
 	
