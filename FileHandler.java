@@ -12,7 +12,7 @@ public class FileHandler {
         }
 
         private void createFile (String fileName) throws IOException {
-            FileWriter fw = new FileWriter(new File("Files/", fileName + ".txt"));
+            FileWriter fw = new FileWriter(new File("Files/quizzes", fileName + ".txt"));
             BufferedWriter bw = new BufferedWriter(fw);
                bw.close();
         }
@@ -23,7 +23,7 @@ public class FileHandler {
 
         public void saveCurrentQuiz (ArrayList<Question> allQuestions, String fileName) throws IOException {
                createFile(fileName);			
-               File file = new File("Files/", fileName + ".txt");
+               File file = new File("Files/quizzes", fileName + ".txt");
                FileWriter fw = new FileWriter(file, true);
                BufferedWriter bw = new BufferedWriter(fw);
                for (int i = 0; i < allQuestions.size(); i++) {

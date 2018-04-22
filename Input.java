@@ -34,9 +34,10 @@ public class Input {
 		}
         System.out.println("1) Add a new quiz");
         System.out.println("2) Edit an existing quiz");
-        System.out.println("3) Add visiting School");
-        System.out.println("4) Display Schools");
-        System.out.println("5) Logout");
+        System.out.println("3) Add new admin");
+        System.out.println("4) Add visiting School");
+        System.out.println("5) Display Schools");
+        System.out.println("6) Logout");
 		return cleanseInput(in.nextLine());
     }
     

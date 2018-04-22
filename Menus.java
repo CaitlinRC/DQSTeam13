@@ -62,24 +62,30 @@ public class Menus {
 	    		break;
 	    	// Edit an existing quiz
 	    	case "2":
+	    		Admin.selectExistingQuizFile();
 	    		// call method for editing quiz
 	    		break;
-	    	// Logout
-	    	case "5":
-	    		setMenu("main");
-	    		break;
 	    	case "3":
+	    		Admin.addAdmin();
+	    		// call method for new admin
+	    		break;	    		
+	    	case "4":
 	    	//This function is for calling for a new school to be added
 	    		AddingSchool addingschool = new AddingSchool();
 	    		addingschool.Added();
 	    		break;
 
-	    	case "4":
+	    	case "5":
 	    	//this functions displays all current people inside of the list
 	    		DisplaySchool displayschool = new DisplaySchool();
 	    		displayschool.Display();
 	    		break;
-	    	// Handle invalid input	
+	    	// Handle invalid input		    		
+	    	// Logout
+	    	case "6":
+	    		setMenu("main");
+	    		break;
+
 	    	default:
 	    		setInputValid(false);
 	    		break; 
