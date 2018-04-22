@@ -27,6 +27,7 @@ public class Menus {
     		// Take quiz
 	    	case "1":
 	    		new takeQuiz();
+	    		setInputValid(true);
 	    		break;
 	    	// Admin login	
 	    	case "2":

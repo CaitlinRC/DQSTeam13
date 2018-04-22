@@ -35,7 +35,7 @@ public class FileHandler {
         public Quiz readFromFile (String fileName) throws IOException {
         	Quiz quiz = new Quiz();
         	quiz.setTitle(fileName);
-        	File file = new File("Files/", fileName + ".txt");
+        	File file = new File("Files/quizzes", fileName + ".txt");
         	Scanner scanner = new Scanner(file); 
         	Question question = new Question();
         	while(scanner.hasNextLine()) {

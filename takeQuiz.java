@@ -19,23 +19,21 @@ public class takeQuiz {
 	  FileHandler files = new FileHandler();
 	  do {
 		  try {
-			  ArrayList<String> quizList = files.getQuizList("Files/");
+			  ArrayList<String> quizList = files.getQuizList("Files/quizzes/");
 			  int quizSelection = (Integer.parseInt(in.getQuizSelection(inputValid, quizList)));
 			  String fileName = quizList.get(quizSelection-1);
-			  System.out.println(fileName);
+			  System.out.println("\nQuiz selected: " + fileName);
 			  Quiz currentQuiz = new Quiz();
 			  currentQuiz = loadQuiz(fileName, files);
 			  for (int i = 0; i < currentQuiz.getQuestions().size(); i++) {
 				  restart = "";
-				  getAnswer(currentQuiz.getQuestions().get(i));
+				  getAnswer(currentQuiz.getQuestions().get(i), i+1);
 
 				  if (restart.equals("0")) {
 					  i = -1;
 					  numberCorrect = 0;
 					  totalAnswers = 0;
-					  System.out.println();
-					  System.out.println("Restarting Quiz");
-					  System.out.println();
+					  System.out.println("\nRestarting " + fileName);
 				  }
 				  // Do whatever you want with statistics here I think? (like increment correct answers if correct == true)
 			  }
@@ -60,8 +58,8 @@ public class takeQuiz {
 	  return currentQuiz;
   }
 
-  public boolean getAnswer(Question question) {
-    System.out.print("\n" + question);
+  public boolean getAnswer(Question question, int questionNumber) {
+    System.out.print("\nQuestion " + questionNumber + ":\n" + question);
     totalAnswers += 1;
     Boolean correct = false;
     setInputValid(true);

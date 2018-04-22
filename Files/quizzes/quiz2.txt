@@ -1,16 +1,20 @@
 Is this module stupid?
 Yes*-
 No*
+
 Is this the second question?
 Yes*-
 No*
+
 Are we making progress?
 Hopefully*
 No*-
+
 Is this a new question?
 Yes*
 No*
 Of Course*-
+
 Can the program handle four answers?
 I don't know*
 Hopefully*
