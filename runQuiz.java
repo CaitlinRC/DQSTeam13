@@ -8,9 +8,9 @@ public class runQuiz {
 		    	case "main":
 		    		menus.mainMenu();
 			    	break;
-		    	//case "admin":
-		    		//menus.adminMenu();
-		    		//break;
+		    	case "admin":
+		    		menus.adminMenu();
+		    		break;
   		}
   	}
   }
