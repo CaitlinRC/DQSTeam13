@@ -1,22 +1,16 @@
-Is this module stupid?
+Are we first year students?
 Yes*-
 No*
 
-Is this the second question?
+Does Helen Phillips teach this module?
 Yes*-
 No*
 
-Are we making progress?
-Hopefully*
+Is Swansea the capital of Wales?
+Yes*
 No*-
 
-Is this a new question?
-Yes*
-No*
-Of Course*-
-
-Can the program handle four answers?
-I don't know*
-Hopefully*
-Yes*-
-Never*
+Which of these is not part of the UK?
+Wales*
+Scotland*
+France*-
