@@ -58,6 +58,7 @@ public class Menus {
     	switch (input.adminMenu(inputValid)) {
     		// Add a new quiz
 	    	case "1":
+	    		Admin.addNewQuiz();
 	    		// call method for adding new quiz
 	    		break;
 	    	// Edit an existing quiz

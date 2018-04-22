@@ -9,8 +9,7 @@ public class Admin {
 	private static String file_path = "Files/admin/admin_database.txt";
 	private static Scanner in = new Scanner(System.in);
 
-	public static boolean detectAdminFile() { //checks if there's no admin file
-												//otherwise it makes a new file with a default admin in it.
+	public static boolean detectAdminFile() { //checks if there's admin file
 		try {
 			File directory = new File("Files/admin/");
 			directory.mkdir();
@@ -118,9 +117,10 @@ public class Admin {
 		boolean _isDone = false;
 		while (_isDone==false) {
 			System.out.println("\nYou may do the following with " + file_name + ": ");
-			System.out.println("  1. Add");
-			System.out.println("  2. Delete by Question no.");
-			System.out.println("  3. Back to dashboard\n");
+			System.out.println("  1. Add a new question");
+			System.out.println("  2. Delete a question by no.");
+			System.out.println("  3. Edit a question by index");
+			System.out.println("  4. Back to dashboard\n");
 			System.out.print("Enter Operation: ");
 
 			switch (in.nextInt()) {
@@ -132,12 +132,27 @@ public class Admin {
 					//to do
 					break;
 
-				case 3:
+				case 4:
 					_isDone = true;
 					break;
 			}
 		}
 	}
+
+	public static void addNewQuiz() {
+		FileHandler file = new FileHandler();
+		System.out.print("\nEnter the topic/theme name: ");
+		String _input = in.nextLine();
+		try {
+			file.createFile(_input);
+		} catch (IOException e) {
+			System.out.println("Unable to create new file.");
+		}
+
+		selectOperation(_input);
+
+	}
+
 	public static void selectExistingQuizFile() {
 		FileHandler file = new FileHandler(); 
 		ArrayList<String> quizList = file.getQuizList("Files/quizzes/"); //reused a code from FileHandler.java to obtain all exisitng files

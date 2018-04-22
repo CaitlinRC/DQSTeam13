@@ -30,10 +30,13 @@ public class AdminFileHandler {
 
 		try {
 			FileWriter file_write = new FileWriter(file_path, true);
-
+			BufferedReader buff_reader = new BufferedReader(new FileReader(file_path));
 			String s = System.getProperty("line.separator");
-
-			file_write.write(s + s + _question);
+			if ((buff_reader.readLine()) == null) {
+				file_write.write(_question);
+			} else {
+				file_write.write(s + s + _question);
+			}
 
 			for (int i=0;i<=answers.length-1;i++) {
 				file_write.write(s + answers[i]);

@@ -11,7 +11,7 @@ public class FileHandler {
 
         }
 
-        private void createFile (String fileName) throws IOException {
+        public void createFile (String fileName) throws IOException {
             FileWriter fw = new FileWriter(new File("Files/quizzes", fileName + ".txt"));
             BufferedWriter bw = new BufferedWriter(fw);
                bw.close();
