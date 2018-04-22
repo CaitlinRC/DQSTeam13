@@ -61,13 +61,8 @@ public class takeQuiz {
 					setInputValid(true);
 				    if (question.isCorrect(input) == true) {
 				        System.out.println("\nCorrect!");
-				        System.out.println();
 				        numberCorrect += 1;
 				        correct = true;
-				      }
-				      else if (input == 0) {
-				        restart = "0";
-				        correct = false;
 				      }
 				       else {
 				        System.out.println("\nIncorrect!");
@@ -75,6 +70,10 @@ public class takeQuiz {
 				        System.out.println();
 				        correct = false;
 				      }
+				}
+			    else if (input == 0) {
+			    	restart = "0";
+				    correct = false;
 				}
 				else {
 					setInputValid(false);

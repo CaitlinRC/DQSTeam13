@@ -3,16 +3,14 @@ import java.util.ArrayList;
 public class Question {
 	private String questionText;
 	private ArrayList<Answer> answerList;
-	private int correctPos;
 
 	public Question() {
 		answerList = new ArrayList<Answer>();
 	}
 
-	public Question(String inQuestion, ArrayList<Answer> inAnswerList, int inCorrectPos) {
+	public Question(String inQuestion, ArrayList<Answer> inAnswerList) {
 		questionText = inQuestion;
 		answerList = inAnswerList;
-		correctPos = inCorrectPos;
 	}
 
 	public String getQuestionText() {
@@ -24,6 +22,12 @@ public class Question {
 	}
 
 	public int getCorrectPos() {
+		int correctPos = 0;
+		for (int i = 0; i < answerList.size(); i++) {
+			if(answerList.get(i).getCorrect()) {
+				correctPos = i+1;
+			}
+		}
 		return correctPos;
 	}
 
@@ -46,7 +50,7 @@ public class Question {
 	}
 	
 	public boolean isCorrect(int input) {
-		if (correctPos == input) {
+		if (getCorrectPos() == input) {
 			return true;
 		}
 		return false;
@@ -67,7 +71,7 @@ public class Question {
 		StringBuffer temp = new StringBuffer();
 		temp.append(questionText + "\n");
 		for (int i = 0; i < answerList.size(); i++) {
-			if (i == correctPos - 1) {
+			if (i == getCorrectPos()) {
 				temp.append(answerList.get(i).getTitle() + "*-\n");
 			} else {
 				temp.append(answerList.get(i).getTitle() + "*\n");
