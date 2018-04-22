@@ -80,4 +80,14 @@ public class Question {
 		//temp.append("\n");
 		return temp.toString();
 	}
+	
+    public Question copy() {
+    	Question questionCopy = new Question();
+    	questionCopy.setQuestionText(getQuestionText());
+    	ArrayList<Answer> answerListCopy = new ArrayList<Answer>();
+        for(int i = 0; i < answerList.size(); ++i) {
+        	answerListCopy.add(answerList.get(i).copy());
+        }
+        return questionCopy;
+    }
 }

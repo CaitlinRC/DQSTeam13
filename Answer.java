@@ -28,4 +28,12 @@ public class Answer {
 	public void setCorrect(Boolean correct) {
 		this.correct = correct;
 	}
+	
+	//Other methods
+	public Answer copy() {
+		Answer answerCopy = new Answer();
+		answerCopy.setTitle(getTitle());
+		answerCopy.setCorrect(getCorrect());
+		return answerCopy;
+	}
 }
