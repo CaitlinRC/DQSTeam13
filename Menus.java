@@ -30,9 +30,17 @@ public class Menus {
 	    		break;
 	    	// Admin login	
 	    	case "2":
-	    		// call admin login method when it's written
-	    		// if successful, then should call setMenu("admin")
-	    		break;
+				if (!Admin.detectAdminFile()) {
+					if (Admin.adminLogin()) {
+		    			setMenu("admin");
+		    			break;
+		    		} else {
+		    			break;
+		    		}
+				} else { 
+				  		System.out.println("\nNo data to read."); //means text file is empty
+				  		break;
+				}
 	    	// Exit
 	    	case "3":
 	    		System.exit(0);
@@ -46,7 +54,7 @@ public class Menus {
     
     // Admin menu
     public void adminMenu() {
-    	switch (input.mainMenu(inputValid)) {
+    	switch (input.adminMenu(inputValid)) {
     		// Add a new quiz
 	    	case "1":
 	    		// call method for adding new quiz

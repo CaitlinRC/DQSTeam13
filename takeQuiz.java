@@ -1,79 +1,100 @@
-import java.util.Scanner;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.io.IOException;
+import java.util.ArrayList;
 // * = answer, - = correct answer
 
 public class takeQuiz {
   int numberCorrect = 0;
   int totalAnswers = 0;
   String restart = "";
+  private Boolean inputValid;
+  private Input in = new Input();
+  
+  private void setInputValid(Boolean inputValid) {
+      this.inputValid = inputValid;
+  }
 
   public takeQuiz() {
-    // Prompt user for their school and year group
-    FileHandler files = new FileHandler();
-    String fileName = files.getQuizFileName("Which quiz do you want to play ");
-    System.out.println(fileName);
-    ArrayList<Question> currentQuiz = new ArrayList<Question>();
-    currentQuiz = getQuiz(fileName, files);
+	  // Prompt user for their school and year group
+	  setInputValid(true);
+	  FileHandler files = new FileHandler();
+	  do {
+		  try {
+			  ArrayList<String> quizList = files.getQuizList("Files/");
+			  int quizSelection = (Integer.parseInt(in.getQuizSelection(inputValid, quizList)));
+			  String fileName = quizList.get(quizSelection-1);
+			  System.out.println(fileName);
+			  Quiz currentQuiz = new Quiz();
+			  currentQuiz = loadQuiz(fileName, files);
+			  for (int i = 0; i < currentQuiz.getQuestions().size(); i++) {
+				  restart = "";
+				  getAnswer(currentQuiz.getQuestions().get(i));
 
-    boolean correct = false;
-    for (int i = 0; i < currentQuiz.size(); i++) {
-      restart = "";
-      correct = getAnswer(currentQuiz.get(i));
+				  if (restart.equals("0")) {
+					  i = -1;
+					  numberCorrect = 0;
+					  totalAnswers = 0;
+					  System.out.println();
+					  System.out.println("Restarting Quiz");
+					  System.out.println();
+				  }
+				  // Do whatever you want with statistics here I think? (like increment correct answers if correct == true)
+			  }
 
-      if (restart.equals("0")) {
-        i = -1;
-        numberCorrect = 0;
-        totalAnswers = 0;
-        System.out.println();
-        System.out.println("Restarting Quiz");
-        System.out.println();
-      }
-      // Do whatever you want with statistics here I think? (like increment correct answers if correct == true)
-    }
-
-    System.out.println("Quiz Finished!");
-    System.out.println("Your Score: " + numberCorrect + "/" + totalAnswers); // produces score if someone finished the queue
+			  System.out.println("\nQuiz Finished!");
+			  System.out.println("Your Score: " + numberCorrect + "/" + totalAnswers + "\n"); // produces score if someone finished the queue
+		  }
+		  catch(Exception e) {
+			  setInputValid(false);
+		  }
+	  } while(!inputValid);
   }
 
-  public ArrayList<Question> getQuiz(String fileName, FileHandler files) {
-    ArrayList<Question> currentQuiz = new ArrayList<Question>();
-    try {
-      currentQuiz = files.readFromFile(fileName);
-    } catch (IOException e) {
-      System.out.println("Sorry there was a problem");
-      e.printStackTrace();
-    }
-    return currentQuiz;
+  public Quiz loadQuiz(String fileName, FileHandler files) {
+	  Quiz currentQuiz = new Quiz();
+	  try {
+		  currentQuiz = files.readFromFile(fileName);
+	  } catch (IOException e) {
+		  System.out.println("Sorry there was a problem");
+		  e.printStackTrace();
+	  }
+	  return currentQuiz;
   }
 
-  public boolean getAnswer(Question inQuestion) {
-    Scanner userInput = new Scanner(System.in); // new instance of Scanner (for user input)
-    System.out.print(inQuestion);
+  public boolean getAnswer(Question question) {
+    System.out.print("\n" + question);
     totalAnswers += 1;
-    System.out.println("Enter your answer [1 to " + inQuestion.getNumberOfAnswers() + "]: (Enter 0 To Restart The Quiz)");
-    String userAnswer = userInput.nextLine(); // asks for user inputs
-
-    if (inQuestion.isCorrect(userAnswer) == true) {
-      System.out.println("Correct!");
-      System.out.println();
-      numberCorrect += 1;
-      return true;
-    }
-
-    else if (userAnswer.equals("0")) {
-      restart = "0";
-      return false;
-    }
-
-     else {
-      System.out.println("Incorrect!");
-      System.out.print("The correct answer was: "+ inQuestion.getCorrectAnswer());
-      System.out.println();
-      return false;
-    }
-  }
-
+    Boolean correct = false;
+    setInputValid(true);
+		do {
+			try {
+				int input = (Integer.parseInt(in.getQuestionAnswer(inputValid, question)));
+				if(input > 0 && input <= question.getNumberOfAnswers()) {
+					setInputValid(true);
+				    if (question.isCorrect(input) == true) {
+				        System.out.println("\nCorrect!");
+				        numberCorrect += 1;
+				        correct = true;
+				      }
+				       else {
+				        System.out.println("\nIncorrect!");
+				        System.out.print("The correct answer was: "+ question.getCorrectAnswer());
+				        System.out.println();
+				        correct = false;
+				      }
+				}
+			    else if (input == 0) {
+			    	setInputValid(true);
+			    	restart = "0";
+				    correct = false;
+				}
+				else {
+					setInputValid(false);
+				}
+			}
+			catch(Exception e) {
+				setInputValid(false);
+			}
+		} while(!inputValid); // Loop until we get valid user input
+		return correct;
+	}
 }

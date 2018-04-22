@@ -21,7 +21,7 @@ public class Input {
         System.out.println("1) Take a quiz");
         System.out.println("2) Login as admin");
         System.out.println("3) Exit");
-		return in.nextLine();
+		return cleanseInput(in.nextLine());
     }
     
 	// Admin menu
@@ -35,24 +35,37 @@ public class Input {
         System.out.println("1) Add a new quiz");
         System.out.println("2) Edit an existing quiz");
         System.out.println("3) Logout");
-		return in.nextLine();
+		return cleanseInput(in.nextLine());
     }
     
-    /*
-    // Quiz menu
-    public String quizMenu(Boolean inputValid, ArrayList<Quiz> quizzes) {
-    	System.out.println("Which quiz would you like to play?");
+    /* -------------- Take Quiz -------------- */
+    public String getQuestionAnswer(Boolean inputValid, Question question) {
     	if(inputValid) {
-			System.out.println("Please select one of the following options:");
+			System.out.println("\nEnter your answer [1 to " + question.getNumberOfAnswers() + "] (Enter 0 To Restart The Quiz)");
 		}
 		else {
-			System.out.println("\nPlease select a valid menu option:");
+			System.out.println("\nEnter a valid answer [1 to " + question.getNumberOfAnswers() + "] (Enter 0 To Restart The Quiz)");
+		}
+		return cleanseInput(in.nextLine());
+    }
+    
+    public String getQuizSelection(Boolean inputValid, ArrayList<String> quizList) {
+    	if(inputValid) {
+			System.out.println("\nWhich quiz do you want to play [1 to " + quizList.size() + "]");
+		}
+		else {
+			System.out.println("\nPlease select a valid quiz [1 to " + quizList.size() + "]");
 		}
     	// Display an option for each of the available quizzes
-    	for (int i = 0; i < quizzes.size(); ++i) {
-    		System.out.println((i+1) + ") " + quizzes.get(i).getTitle() + "\n");
+    	for (int i = 0; i < quizList.size(); ++i) {
+    		System.out.println((i+1) + ". " + quizList.get(i));
     	}
-		return in.nextLine();
+		return cleanseInput(in.nextLine());
     }
-    */
+    
+    private String cleanseInput(String input) {
+		String cleansed = input.trim();
+		cleansed = cleansed.replaceAll("\\pP", ""); // replaces all punctuation
+		return cleansed;
+    }
 }
