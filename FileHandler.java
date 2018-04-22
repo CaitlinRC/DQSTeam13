@@ -34,48 +34,35 @@ public class FileHandler {
                bw.close();
         }
 
-        public ArrayList<Question> readFromFile (String fileName) throws IOException {
-        	ArrayList<Question> returnList = new ArrayList<Question>();
-        	String line;
+        public Quiz readFromFile (String fileName) throws IOException {
+        	Quiz quiz = new Quiz();
+        	quiz.setTitle(fileName);
         	File file = new File("Files/", fileName + ".txt");
-        	FileReader fr = new FileReader(file);
-                BufferedReader br = new BufferedReader(fr);
-
-                String questionText = "";
-                ArrayList<String> tempAnswerList = new ArrayList<String>();
-                int counter = 0;
-                int tempCorrectPos = 0;
-                boolean isAnswers = false;
-                Question tempQuestion;
-                while((line = br.readLine()) != null) {
-                	if (isAnswers == false) {
-                		questionText = line;
-                		isAnswers = true;
-                		counter = 0;
-                	} else if (isAnswers == true) {
-                		if (line.contains("*")) {
-                			counter += 1;
-                			if (line.contains("-")) {
-                				tempAnswerList.add(line.substring(0, line.length() - 2));
-                				tempCorrectPos = counter;
-                			} else {
-                				tempAnswerList.add(line.substring(0, line.length() - 1));
-                			}
-                		} else {
-                			isAnswers = false;
-                			tempQuestion = new Question(questionText, tempAnswerList, tempCorrectPos);
-                			returnList.add(tempQuestion);
-                			questionText = "";
-                			tempAnswerList = new ArrayList<String>();
-                			tempCorrectPos = 0;
-                			tempQuestion = new Question();
-                		}
+            Scanner scanner = new Scanner(file); 
+                Question question = new Question();
+                while(scanner.hasNextLine()) {
+                	String line = scanner.nextLine();
+                	if (line.contains("?")){
+                		question = new Question();
+                		question.setQuestionText(line);
                 	}
+	                else if(line.contains("-")) {
+	                	String title = new String();
+	                	title = line.substring(0, line.length() - 2);
+	                	question.addAnswer(title, true);
+	                }
+	                else if (line.contains("*")) {
+	                	String title = new String(); 
+	                	title = line.substring(0, line.length() - 1);
+	                	question.addAnswer(title, false);
+	                }
+	                else {
+	                	quiz.addQuestion(question);
+	                }
                 }
-        	tempQuestion = new Question(questionText, tempAnswerList, tempCorrectPos);
-        	returnList.add(tempQuestion);
-                br.close(); 
-        	return returnList;
+            quiz.addQuestion(question); // to make sure the last question gets added
+            scanner.close();
+        	return quiz;
         }
 
         public void displayQuizList(File directory) {
@@ -84,7 +71,6 @@ public class FileHandler {
                         fileName = directory.list()[i];
                         System.out.println((i + 1) + ". " + fileName.substring(0, fileName.length() - 4));
                 }
-                System.out.println("");
         }
 
         public String getQuizFileName(String prompt) {

@@ -4,3 +4,12 @@ FileHandler.class
 Question.class
 test.class
 MainMenu.class
+/Input.class
+/Student.class
+/StudentDirectory.class
+/Quiz.class
+/QuizDirectory.class
+/QuestionDirectory.class
+/Menus.class
+/Answer.class
+/Admin.class
