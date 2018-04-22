@@ -80,7 +80,7 @@ public class Admin {
 		System.out.println("Enter a valid admin ID (Requirements: 5 digits): ");
 		String _adminID = in.nextLine();
 		while (!_adminID.matches("[1-9][0-9]{4}")) {
-			System.out.print("\nInvalid Admin ID.\nEnter a valid admin ID (Requirements: 5 digits): ");
+			System.out.print("\nInvalid Admin ID.\nEnter a valid admin ID (Requirements: 5 digits, Does not start with 0): ");
 			_adminID = in.nextLine();
 		}
 
@@ -116,19 +116,23 @@ public class Admin {
 		while (_isDone==false) {
 			System.out.println("\nYou may do the following with " + file_name + ": ");
 			System.out.println("  1. Add a new question");
-			System.out.println("  2. Delete a question by no.");
+			System.out.println("  2. Delete a question by index");
 			System.out.println("  3. Edit a question by index");
 			System.out.println("  4. Back to dashboard\n");
 			System.out.print("Enter Operation: ");
 
 			switch (in.nextInt()) {
-				case 1:
-					AdminFileHandler.addQuestion("Files/quizzes/" + file_name + ".txt");
+				case 1://adding a new question to file
+					AdminFileHandler.addQuestion(file_name, true);
 					break;
 
 				case 2:
 					AdminFileHandler.deleteQuestion(file_name);
 					//to do
+					break;
+
+				case 3://replacing a question with new one to file
+					AdminFileHandler.addQuestion(file_name, false);
 					break;
 
 				case 4:

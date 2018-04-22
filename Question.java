@@ -71,7 +71,7 @@ public class Question {
 		StringBuffer temp = new StringBuffer();
 		temp.append(questionText + "\r\n");
 		for (int i = 0; i < answerList.size(); i++) {
-			if (i == getCorrectPos()) {
+			if (i == getCorrectPos()-1) {
 				temp.append(answerList.get(i).getTitle() + "*-\r\n");
 			} else {
 				temp.append(answerList.get(i).getTitle() + "*\r\n");

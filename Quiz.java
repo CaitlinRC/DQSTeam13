@@ -37,8 +37,12 @@ public class Quiz {
 	}
 
 	public void deleteQuestionByIndex(int position) {
-		questions.remove(position);
-	}		
+		questions.remove(position); //used by the admin to delete a specific question 
+	}
+
+	public void replaceQuestionByIndex(int position, Question question) {
+		questions.set(position, question);
+	}
 
 	// Used for creating a deep copy of a quiz object. The .clone method only creates a shallow copy	
     public Quiz copy() {
