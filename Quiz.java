@@ -11,7 +11,6 @@ public class Quiz {
 	}
 	
 	public Quiz(String title, ArrayList<Question> questions) {
-		super();
 		this.title = title;
 		this.questions = questions;
 	}
@@ -37,11 +36,14 @@ public class Quiz {
 		questions.add(question);
 	}
 
-	// Used for creating a deep copy of a quiz object. The .clone method only creates a shallow copy
-	public Quiz copy() {
-		Quiz quizCopy = new Quiz();
-		quizCopy.setTitle(getTitle());
-		
-		return quizCopy;
-	}
+	// Used for creating a deep copy of a quiz object. The .clone method only creates a shallow copy	
+    public Quiz copy() {
+    	Quiz quizCopy = new Quiz();
+    	quizCopy.setTitle(getTitle());
+    	ArrayList<Question> questionsCopy = new ArrayList<Question>();
+        for(int i = 0; i < questions.size(); ++i) {
+        	questionsCopy.add(questions.get(i).copy());
+        }
+        return quizCopy;
+    }
 }
