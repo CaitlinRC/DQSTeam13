@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.ArrayList;
 // * = answer, - = correct answer
 
 public class takeQuiz {
@@ -13,40 +14,50 @@ public class takeQuiz {
   }
 
   public takeQuiz() {
-    // Prompt user for their school and year group
-    FileHandler files = new FileHandler();
-    String fileName = files.getQuizFileName("\nWhich quiz do you want to play ");
-    System.out.println(fileName);
-    Quiz currentQuiz = new Quiz();
-    currentQuiz = getQuiz(fileName, files);
-    for (int i = 0; i < currentQuiz.getQuestions().size(); i++) {
-      restart = "";
-      getAnswer(currentQuiz.getQuestions().get(i));
+	  // Prompt user for their school and year group
+	  setInputValid(true);
+	  FileHandler files = new FileHandler();
+	  do {
+		  try {
+			  ArrayList<String> quizList = files.getQuizList("Files/");
+			  int quizSelection = (Integer.parseInt(in.getQuizSelection(inputValid, quizList)));
+			  String fileName = quizList.get(quizSelection-1);
+			  System.out.println(fileName);
+			  Quiz currentQuiz = new Quiz();
+			  currentQuiz = loadQuiz(fileName, files);
+			  for (int i = 0; i < currentQuiz.getQuestions().size(); i++) {
+				  restart = "";
+				  getAnswer(currentQuiz.getQuestions().get(i));
 
-      if (restart.equals("0")) {
-        i = -1;
-        numberCorrect = 0;
-        totalAnswers = 0;
-        System.out.println();
-        System.out.println("Restarting Quiz");
-        System.out.println();
-      }
-      // Do whatever you want with statistics here I think? (like increment correct answers if correct == true)
-    }
+				  if (restart.equals("0")) {
+					  i = -1;
+					  numberCorrect = 0;
+					  totalAnswers = 0;
+					  System.out.println();
+					  System.out.println("Restarting Quiz");
+					  System.out.println();
+				  }
+				  // Do whatever you want with statistics here I think? (like increment correct answers if correct == true)
+			  }
 
-    System.out.println("\nQuiz Finished!");
-    System.out.println("Your Score: " + numberCorrect + "/" + totalAnswers + "\n"); // produces score if someone finished the queue
+			  System.out.println("\nQuiz Finished!");
+			  System.out.println("Your Score: " + numberCorrect + "/" + totalAnswers + "\n"); // produces score if someone finished the queue
+		  }
+		  catch(Exception e) {
+			  setInputValid(false);
+		  }
+	  } while(!inputValid);
   }
 
-  public Quiz getQuiz(String fileName, FileHandler files) {
-    Quiz currentQuiz = new Quiz();
-    try {
-      currentQuiz = files.readFromFile(fileName);
-    } catch (IOException e) {
-      System.out.println("Sorry there was a problem");
-      e.printStackTrace();
-    }
-    return currentQuiz;
+  public Quiz loadQuiz(String fileName, FileHandler files) {
+	  Quiz currentQuiz = new Quiz();
+	  try {
+		  currentQuiz = files.readFromFile(fileName);
+	  } catch (IOException e) {
+		  System.out.println("Sorry there was a problem");
+		  e.printStackTrace();
+	  }
+	  return currentQuiz;
   }
 
   public boolean getAnswer(Question question) {
@@ -72,6 +83,7 @@ public class takeQuiz {
 				      }
 				}
 			    else if (input == 0) {
+			    	setInputValid(true);
 			    	restart = "0";
 				    correct = false;
 				}
@@ -85,5 +97,4 @@ public class takeQuiz {
 		} while(!inputValid); // Loop until we get valid user input
 		return correct;
 	}
-
 }

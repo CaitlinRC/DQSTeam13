@@ -38,24 +38,6 @@ public class Input {
 		return cleanseInput(in.nextLine());
     }
     
-    /*
-    // Quiz menu
-    public String quizMenu(Boolean inputValid, ArrayList<Quiz> quizzes) {
-    	System.out.println("Which quiz would you like to play?");
-    	if(inputValid) {
-			System.out.println("Please select one of the following options:");
-		}
-		else {
-			System.out.println("\nPlease select a valid menu option:");
-		}
-    	// Display an option for each of the available quizzes
-    	for (int i = 0; i < quizzes.size(); ++i) {
-    		System.out.println((i+1) + ") " + quizzes.get(i).getTitle() + "\n");
-    	}
-		return cleanseInput(in.nextLine());
-    }
-    */
-    
     /* -------------- Take Quiz -------------- */
     public String getQuestionAnswer(Boolean inputValid, Question question) {
     	if(inputValid) {
@@ -67,13 +49,17 @@ public class Input {
 		return cleanseInput(in.nextLine());
     }
     
-    public String getQuizSelection(Boolean inputValid, int maxNumber) {
+    public String getQuizSelection(Boolean inputValid, ArrayList<String> quizList) {
     	if(inputValid) {
-			System.out.println("\nWhich quiz do you want to play [1 to " + maxNumber + "]");
+			System.out.println("\nWhich quiz do you want to play [1 to " + quizList.size() + "]");
 		}
 		else {
-			System.out.println("\nPlease select a valid quiz [1 to \" + maxNumber + \"]");
+			System.out.println("\nPlease select a valid quiz [1 to " + quizList.size() + "]");
 		}
+    	// Display an option for each of the available quizzes
+    	for (int i = 0; i < quizList.size(); ++i) {
+    		System.out.println((i+1) + ". " + quizList.get(i));
+    	}
 		return cleanseInput(in.nextLine());
     }
     
