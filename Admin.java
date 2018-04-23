@@ -41,7 +41,7 @@ public class Admin {
 		// Admin name
 		do {
 			try {
-				admin.setAdminID(input.getAdminPassword(inputValid));
+				admin.setAdminName(input.getAdminName(inputValid));
 				setInputValid(true);
 			}
     		catch(IllegalArgumentException e) {
