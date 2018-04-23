@@ -63,7 +63,7 @@ public takeQuiz() {
 
    			studentStatistics = new StudentStatistics(numberCorrect, timeTakenStudent, timeTakenPerQuestion);
 		  	System.out.println("\nQuiz Finished!");
-		  	displayStudentStatistics(studentStatistics);
+		  	displayStudentStatistics(studentStatistics, currentQuiz.getQuestions().size());
 
 	  	} catch(Exception e) {
 	  		setInputValid(false);
@@ -71,7 +71,7 @@ public takeQuiz() {
 	  } while(!inputValid);
   }
 
-  public void displayStudentStatistics(StudentStatistics studentStatistics) {
+  public void displayStudentStatistics(StudentStatistics studentStatistics, int quiz_length) {
         int numberCorrect = studentStatistics.getNumberCorrect();
         double timeTaken = studentStatistics.getTimeTaken();
         double[] timeTakenPerQuestion = studentStatistics.getTimeTakenPerQuestion();
@@ -79,7 +79,7 @@ public takeQuiz() {
 
         System.out.println("Your score is: " + numberCorrect);
         System.out.println("Your time was: " + timeTaken + "seconds");
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < quiz_length; i++) {
             System.out.println("For question " + Integer.toString(i + 1) + " you took " + timeTakenPerQuestion[i] + " seconds");
         }
         System.out.println("Your average time per question was: " + averageTimePerQuestion);
