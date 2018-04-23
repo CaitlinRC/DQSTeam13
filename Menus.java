@@ -74,7 +74,7 @@ public class Menus {
     				setMenu("adminQuiz");
     				setInputValid(true);
     				break;
-    			// Copy quiz
+    				// Copy quiz
     			case "2":
     				quiz = admin.addNewQuizCopy();
     				setMenu("adminQuiz");
@@ -85,35 +85,35 @@ public class Menus {
     				break;
     			}
     		} while (!inputValid);
-    		// call method for adding new quiz
+    		setInputValid(true);
     		break;
-    		// Edit an existing quiz
+    	// Edit an existing quiz
     	case "2":
     		quiz = admin.loadQuiz(admin.selectExistingQuizFile());
     		setMenu("adminQuiz");
-    		// call method for editing quiz
+    		setInputValid(true);
     		break;
+    	// Add new admin account
     	case "3":
     		admin.addAdmin();
-    		// call method for new admin
+    		setInputValid(true);
     		break;
+    	// New schoool
     	case "4":
-    		// This function is for calling for a new school to be added
-    		AddingSchool addingschool = new AddingSchool();
-    		addingschool.Added();
+    		admin.addSchool();
+    		setInputValid(true);
     		break;
-
+    	// Display schools
     	case "5":
-    		// this functions displays all current people inside of the list
-    		DisplaySchool displayschool = new DisplaySchool();
-    		displayschool.Display();
+    		file.readSchoolsFile();
+    		setInputValid(true);
     		break;
-    		// Handle invalid input
-    		// Logout
+    	// Logout
     	case "6":
     		setMenu("main");
+    		setInputValid(true);
     		break;
-
+    	// Handle invalid input
     	default:
     		setInputValid(false);
     		break;
@@ -126,18 +126,22 @@ public class Menus {
 			// Add a new question
 	    	case "1":
 	    		admin.addQuestion(quiz);
+	    		setInputValid(true);
 	    		break;
 	    	// Delete a question	
 	    	case "2":
 	    		admin.deleteQuestion(quiz);
+	    		setInputValid(true);
 	    		break;
 	    	// Edit question
 	    	case "3":
 	    		admin.editQuestion(quiz);
+	    		setInputValid(true);
 	    		break;
 	    	// Back to dashboard
 	    	case "4":
 	    		setMenu("admin");
+	    		setInputValid(true);
 	    		break;	
 	    	// Handle invalid input	
 	    	default:
