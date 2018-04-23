@@ -120,7 +120,12 @@ public class Admin {
 	  }
 	  
 	  public void editQuestion(Quiz quiz) {
-		  Question question = quiz.getQuestions().get(Integer.parseInt(input.editQuestion())-1);
+	  	int inputtedIndex = Integer.parseInt(input.editQuestion()) - 1;
+	  	if (inputtedIndex >= quiz.getSize() || inputtedIndex < 0) {
+	  		System.out.println("Sorry but that is an invalid index");
+	  		return;
+	  	}
+		  Question question = quiz.getQuestions().get(inputtedIndex);
 		  question.setQuestionText(input.getNewQuizQuestion());
 		  question.getAnswerList().clear();
 		  String numberOfAnswers = input.getNewQuizAnswers();
