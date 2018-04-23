@@ -25,7 +25,7 @@ public class AddingSchool {
 		school.setYear(year);
 
 		try{
-			FileWriter writer = new FileWriter("Files/Schools.txt", true);
+			FileWriter writer = new FileWriter("Files/admin/Schools.txt", true);
 			BufferedWriter bw = new BufferedWriter(writer);
 			PrintWriter out = new PrintWriter(writer);
 
