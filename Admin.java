@@ -123,36 +123,42 @@ public class Admin {
 	  }
 	  
 	  public void editQuestion(Quiz quiz) {
-		  	int inputtedIndex = Integer.parseInt(input.editQuestion2()) - 1;
-		  	if (inputtedIndex >= quiz.getSize() || inputtedIndex < 0) {
-		  		System.out.println("Sorry but that is an invalid index");
-		  		return;
-		  	}
-			  Question question = quiz.getQuestions().get(inputtedIndex);
-			  question.setQuestionText(input.getNewQuizQuestion());
-			  question.getAnswerList().clear();
-			  String numberOfAnswers = input.getNewQuizAnswers();
-			  boolean _rightAnswerSelected = false;
-			  for (int i = 0; i < Integer.parseInt(numberOfAnswers); i++) {
-				  Answer answer = new Answer();
-				  answer.setTitle(input.getAnswer(i + 1)); 
-				  answer.setCorrect(false);
-				  if (_rightAnswerSelected == false) {
-					  if (input.rightAnswer().equals("y")) {
-						  answer.setCorrect(true);
-						  _rightAnswerSelected = true;
-					  }
-				  }
-				  question.addAnswer(answer);
-			  }
+		  setInputValid(true);
+		  do {
 			  try {
-				  file.saveQuiz(quiz);
-				  System.out.println("\nSuccessfully added a question into the database.");
-			  } catch (IOException e) {
-				  System.out.println("\nUnable to add question into the database.");
+					int selection = (Integer.parseInt(input.editQuestion(inputValid, quiz)));
+					if (selection == 0) {
+						return;
+					}
+				  Question question = quiz.getQuestions().get(selection - 1);
+				  question.setQuestionText(input.getNewQuizQuestion());
+				  question.getAnswerList().clear();
+				  String numberOfAnswers = input.getNewQuizAnswers();
+				  boolean _rightAnswerSelected = false;
+				  for (int i = 0; i < Integer.parseInt(numberOfAnswers); i++) {
+					  Answer answer = new Answer();
+					  answer.setTitle(input.getAnswer(i + 1)); 
+					  answer.setCorrect(false);
+					  if (_rightAnswerSelected == false) {
+						  if (input.rightAnswer().equals("y")) {
+							  answer.setCorrect(true);
+							  _rightAnswerSelected = true;
+						  }
+					  }
+					  question.addAnswer(answer);
+				  }
+				  try {
+					  file.saveQuiz(quiz);
+					  System.out.println("\nSuccessfully added a question into the database.");
+				  } catch (IOException e) {
+					  System.out.println("\nUnable to add question into the database.");
+				  }
+				  setInputValid(true);}
+			  catch (Exception e) {
+				  setInputValid(false);
 			  }
-			  setInputValid(true);
-		  }
+		  }while(!inputValid);
+	  }
 
 	public void addQuestion(Quiz quiz) {
 		Question question = new Question();
