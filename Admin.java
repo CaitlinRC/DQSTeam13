@@ -5,10 +5,14 @@ import java.util.ArrayList;
 public class Admin {
 	private Input input = new Input();
 	private FileHandler file = new FileHandler();
+<<<<<<< HEAD
 	private Boolean inputValid;
 
 	public Admin() {
 	}
+=======
+	private Boolean inputValid=true;
+>>>>>>> 008c7ab8b3b01a916ce48bdb0fef71d2bbe872d0
 	
     private void setInputValid(Boolean inputValid) {
         this.inputValid = inputValid;
@@ -123,36 +127,36 @@ public class Admin {
 	  }
 	  
 	  public void editQuestion(Quiz quiz) {
-	  	int inputtedIndex = Integer.parseInt(input.editQuestion()) - 1;
-	  	if (inputtedIndex >= quiz.getSize() || inputtedIndex < 0) {
-	  		System.out.println("Sorry but that is an invalid index");
-	  		return;
-	  	}
-		  Question question = quiz.getQuestions().get(inputtedIndex);
-		  question.setQuestionText(input.getNewQuizQuestion());
-		  question.getAnswerList().clear();
-		  String numberOfAnswers = input.getNewQuizAnswers();
-		  boolean _rightAnswerSelected = false;
-		  for (int i = 0; i < Integer.parseInt(numberOfAnswers); i++) {
-			  Answer answer = new Answer();
-			  answer.setTitle(input.getAnswer(i + 1)); 
-			  answer.setCorrect(false);
-			  if (_rightAnswerSelected == false) {
-				  if (input.rightAnswer().equals("y")) {
-					  answer.setCorrect(true);
-					  _rightAnswerSelected = true;
+		  	int inputtedIndex = Integer.parseInt(input.editQuestion2()) - 1;
+		  	if (inputtedIndex >= quiz.getSize() || inputtedIndex < 0) {
+		  		System.out.println("Sorry but that is an invalid index");
+		  		return;
+		  	}
+			  Question question = quiz.getQuestions().get(inputtedIndex);
+			  question.setQuestionText(input.getNewQuizQuestion());
+			  question.getAnswerList().clear();
+			  String numberOfAnswers = input.getNewQuizAnswers();
+			  boolean _rightAnswerSelected = false;
+			  for (int i = 0; i < Integer.parseInt(numberOfAnswers); i++) {
+				  Answer answer = new Answer();
+				  answer.setTitle(input.getAnswer(i + 1)); 
+				  answer.setCorrect(false);
+				  if (_rightAnswerSelected == false) {
+					  if (input.rightAnswer().equals("y")) {
+						  answer.setCorrect(true);
+						  _rightAnswerSelected = true;
+					  }
 				  }
+				  question.addAnswer(answer);
 			  }
-			  question.addAnswer(answer);
+			  try {
+				  file.saveQuiz(quiz);
+				  System.out.println("\nSuccessfully added a question into the database.");
+			  } catch (IOException e) {
+				  System.out.println("\nUnable to add question into the database.");
+			  }
+			  setInputValid(true);
 		  }
-		  try {
-			  file.saveQuiz(quiz);
-			  System.out.println("\nSuccessfully added a question into the database.");
-		  } catch (IOException e) {
-			  System.out.println("\nUnable to add question into the database.");
-		  }
-		  setInputValid(true);
-	  }
 
 	public void addQuestion(Quiz quiz) {
 		Question question = new Question();
@@ -182,27 +186,25 @@ public class Admin {
 	}
 	
 	public void deleteQuestion(Quiz quiz) {
-			do {
-				try {
-					int selection = (Integer
-							.parseInt(input.deleteQuestion(inputValid, quiz.getQuestions().size())));
-					try {
-						quiz.deleteQuestionByIndex(selection - 1);
-					} catch (IndexOutOfBoundsException e) {
-						System.out.println("\nQuestion does not exist. Therefore, can not be deleted.\n");
-					}
-					setInputValid(true);
-				} catch (Exception e) {
-					setInputValid(false);
-				}
-			} while (!inputValid);
-			System.out.println(quiz.getQuestions());
+		setInputValid(true);
+		do {
 			try {
-				file.saveQuiz(quiz);
-				System.out.println("\nSuccessfully deleted question.");
-			} catch (IOException e) {
-				System.out.println("\nUnable to delete question.");
+				int selection = (Integer.parseInt(input.deleteQuestion(inputValid, quiz)));
+				if (selection == 0) {
+					return;
+				}
+					quiz.deleteQuestionByIndex(selection - 1);
+				setInputValid(true);
+			} catch (Exception e) {
+				setInputValid(false);
 			}
+		} while (!inputValid);
+		try {
+			file.saveQuiz(quiz);
+			System.out.println("\nSuccessfully deleted question.");
+		} catch (IOException e) {
+			System.out.println("\nUnable to delete question.");
+		}
 		setInputValid(true);
 	}
 

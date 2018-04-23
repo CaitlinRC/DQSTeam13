@@ -1,0 +1,25 @@
+Is this sky blue?
+Yes*-
+No*
+
+Is this the second question?
+Yes*-
+No*
+
+What is the name of our planet?
+Mars*
+Earth*-
+
+What is the meaning of life?
+Cheese*
+Computing*
+42*-
+
+Which of these is not one of our modules?
+Developing Quality Software*
+Problem Solving With Python*
+Historical Fiction*-
+Maths For Computer Science*
+
+newQuestion?
+yes*-

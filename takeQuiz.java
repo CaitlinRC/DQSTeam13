@@ -49,10 +49,15 @@ public takeQuiz() {
 		  	timeTakenStudent = Math.round((System.currentTimeMillis() - timeStartStudent) / 1000);
 
    			studentStatistics = new StudentStatistics(numberCorrect, timeTakenStudent, timeTakenPerQuestion);
+<<<<<<< HEAD
 
 		  	System.out.println("\nQuiz Finished!\n");
 		  	try {TimeUnit.SECONDS.sleep(1);} catch(InterruptedException ex) {}
 		  	displayStudentStatistics(studentStatistics);
+=======
+		  	System.out.println("\nQuiz Finished!");
+		  	displayStudentStatistics(studentStatistics, currentQuiz.getQuestions().size());
+>>>>>>> 008c7ab8b3b01a916ce48bdb0fef71d2bbe872d0
 
 	  	} catch(Exception e) {
 	  		setInputValid(false);
@@ -60,17 +65,23 @@ public takeQuiz() {
 	  } while(!inputValid);
   }
 
-  public void displayStudentStatistics(StudentStatistics studentStatistics) {
+  public void displayStudentStatistics(StudentStatistics studentStatistics, int quiz_length) {
         int numberCorrect = studentStatistics.getNumberCorrect();
         double timeTaken = studentStatistics.getTimeTaken();
         double[] timeTakenPerQuestion = studentStatistics.getTimeTakenPerQuestion();
         double averageTimePerQuestion = studentStatistics.getAverageTimePerQuestion();
 
+<<<<<<< HEAD
         System.out.println("Your score was: " + numberCorrect + "\n");
         try {TimeUnit.SECONDS.sleep(1);} catch(InterruptedException ex) {}
         System.out.println("Your time was: " + timeTaken + " seconds\n");
         try {TimeUnit.SECONDS.sleep(1);} catch(InterruptedException ex) {}
         for (int i = 0; i < 10; i++) {
+=======
+        System.out.println("Your score is: " + numberCorrect);
+        System.out.println("Your time was: " + timeTaken + "seconds");
+        for (int i = 0; i < quiz_length; i++) {
+>>>>>>> 008c7ab8b3b01a916ce48bdb0fef71d2bbe872d0
             System.out.println("For question " + Integer.toString(i + 1) + " you took " + timeTakenPerQuestion[i] + " seconds");
             try {TimeUnit.MILLISECONDS.sleep(500);} catch(InterruptedException ex) {}
         }

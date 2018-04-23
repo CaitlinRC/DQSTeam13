@@ -122,7 +122,7 @@ public class Menus {
     
 	// Admin quiz dashboard
 	public void adminQuizMenu() {
-	    	switch (input.adminQuizMenu(inputValid, quiz.getTitle())) {
+	    	switch (input.adminQuizMenu(inputValid, quiz)) {
 			// Add a new question
 	    	case "1":
 	    		admin.addQuestion(quiz);

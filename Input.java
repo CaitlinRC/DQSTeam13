@@ -41,9 +41,9 @@ public class Input {
 		return cleanseInput(in.nextLine());
     }
     
-    public String adminQuizMenu(Boolean inputValid, String filename) {
+    public String adminQuizMenu(Boolean inputValid, Quiz quiz) {
     	if(inputValid) {
-			System.out.println("\nYou may do the following with " + filename + ": ");
+			System.out.println("\nYou may do the following with " + quiz.getTitle() + ": ");
 		}
 		else {
 			System.out.println("\nPlease select a valid menu option:");
@@ -141,18 +141,34 @@ public class Input {
 		return cleanseInput(in.nextLine());
     }
     
-    public String deleteQuestion(Boolean inputValid, int max) {
+    public String deleteQuestion(Boolean inputValid, Quiz quiz) {
+    	int questions = quiz.getQuestions().size();
     	if(inputValid) {
-    		System.out.println("\nEnter the position of the question you want to be removed (choose between: 1 - " + max + "): ");
+    		System.out.println("\nPlease select a question to delete [choose between: 1 - " + questions + "] " + "] (Enter 0 to cancel):");
     	}
     	else {
-    		System.out.println("\nInvalid Selection.\nEnter a position of the question you want to be removed (choose between: 1 - " + max + "): ");
+    		System.out.println("\nInvalid Selection.\nPlease select a question to delete (choose between: 1 - " + questions + "): ");
     	}
+    	// Display an option for each of the questions
+    	System.out.println(quiz.displayQuestions());
 		return cleanseInput(in.nextLine());
     }
     
-    public String editQuestion() {
-    	System.out.println("Enter which question you want to edit:");
+    public String editQuestion(Boolean inputValid, Quiz quiz) {
+    	int questions = quiz.getQuestions().size();
+    	if(inputValid) {
+    		System.out.println("\nPlease select a question to edit [choose between: 1 - " + questions + "] (Enter 0 to cancel):");
+    	}
+    	else {
+    		System.out.println("\nInvalid Selection.\nPlease select a question to edit (choose between: 1 - " + questions + "): ");
+    	}
+    	// Display an option for each of the questions
+    	System.out.println(quiz.displayQuestions());
+		return cleanseInput(in.nextLine());
+    }
+    
+    public String editQuestion2() {
+System.out.println("\nPlease select a question to edit");
 		return cleanseInput(in.nextLine());
     }
     
