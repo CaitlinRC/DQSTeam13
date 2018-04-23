@@ -7,27 +7,27 @@ public class AdminAccount {
 	private String password;
 	private String adminName;
 	private Scanner in = new Scanner(System.in);
-	
+
 	public String getAdminID() {
 		return adminID;
 	}
-	
+
 	public void setAdminID(String adminID) {
-		if(adminID.matches("[1-9][0-9]{4}")){
+		if(adminID.matches("[0-9][0-9]{4}")){
 			this.adminID = adminID;
 		}
 		else {
 			throw new IllegalArgumentException();
 		}
 	}
-	
+
 	public String getPassword() {
 		return password;
 	}
 
 	public void setPassword(String password) {
-		if(password.length()>=6){
-			this.password = password;
+if (password.matches("[\\s\\S]{5}[\\s\\S]+")){
+		this.password = password;
 		}
 		else {
 			throw new IllegalArgumentException();
@@ -46,7 +46,7 @@ public class AdminAccount {
 			throw new IllegalArgumentException();
 		}
 	}
-	
+
 //main function to call when loggin in
 	public boolean adminLogin() {
 
@@ -92,7 +92,7 @@ public class AdminAccount {
 			return false;
 		} catch (IOException e) {
 			System.out.println("Unable to read admin database file this time.");
-			return false;				
+			return false;
 		}
 	}
 }
