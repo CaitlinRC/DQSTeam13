@@ -1,0 +1,3 @@
+What does a function do?
+Maps each element of a set onto another element of a second set*-
+Doesnt do that*
