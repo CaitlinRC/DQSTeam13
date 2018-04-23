@@ -120,23 +120,35 @@ public class Admin {
 	  }
 	  
 	  public void editQuestion(Quiz quiz) {
-		  Question question = quiz.getQuestions().get(Integer.parseInt(input.editQuestion())-1);
-		  question.setQuestionText(input.getNewQuizQuestion());
-		  question.getAnswerList().clear();
-		  String numberOfAnswers = input.getNewQuizAnswers();
-		  boolean _rightAnswerSelected = false;
-		  for (int i = 0; i < Integer.parseInt(numberOfAnswers); i++) {
-			  Answer answer = new Answer();
-			  answer.setTitle(input.getAnswer(i + 1)); 
-			  answer.setCorrect(false);
-			  if (_rightAnswerSelected == false) {
-				  if (input.rightAnswer().equals("y")) {
-					  answer.setCorrect(true);
-					  _rightAnswerSelected = true;
+		  setInputValid(true);
+		  do {
+			  try {
+				  int selection = (Integer.parseInt(input.deleteQuestion(inputValid, quiz)));
+				  if(selection == 0) {
+						return;
 				  }
+				  Question question = quiz.getQuestions().get(selection-1);
+				  question.setQuestionText(input.getNewQuizQuestion());
+				  question.getAnswerList().clear();
+				  String numberOfAnswers = input.getNewQuizAnswers();
+				  boolean _rightAnswerSelected = false;
+				  for (int i = 0; i < Integer.parseInt(numberOfAnswers); i++) {
+					  Answer answer = new Answer();
+					  answer.setTitle(input.getAnswer(i + 1)); 
+					  answer.setCorrect(false);
+					  if (_rightAnswerSelected == false) {
+						  if (input.rightAnswer().equals("y")) {
+							  answer.setCorrect(true);
+							  _rightAnswerSelected = true;
+						  }
+					  }
+					  question.addAnswer(answer);
+				  }
+
+			  }	 catch (Exception e) {
+				  setInputValid(false);
 			  }
-			  question.addAnswer(answer);
-		  }
+		  } while (!inputValid);
 		  try {
 			  file.saveQuiz(quiz);
 			  System.out.println("\nSuccessfully added a question into the database.");
@@ -174,27 +186,30 @@ public class Admin {
 	}
 	
 	public void deleteQuestion(Quiz quiz) {
-			do {
-				try {
-					int selection = (Integer
-							.parseInt(input.deleteQuestion(inputValid, quiz.getQuestions().size())));
-					try {
-						quiz.deleteQuestionByIndex(selection - 1);
-					} catch (IndexOutOfBoundsException e) {
-						System.out.println("\nQuestion does not exist. Therefore, can not be deleted.\n");
-					}
-					setInputValid(true);
-				} catch (Exception e) {
-					setInputValid(false);
-				}
-			} while (!inputValid);
-			System.out.println(quiz.getQuestions());
+		setInputValid(true);
+		do {
 			try {
-				file.saveQuiz(quiz);
-				System.out.println("\nSuccessfully deleted question.");
-			} catch (IOException e) {
-				System.out.println("\nUnable to delete question.");
+				int selection = (Integer.parseInt(input.deleteQuestion(inputValid, quiz)));
+				if (selection == 0) {
+					return;
+				}
+				try {
+					quiz.deleteQuestionByIndex(selection - 1);
+				} catch (IndexOutOfBoundsException e) {
+					System.out.println("\nQuestion does not exist. Therefore, can not be deleted.\n");
+				}
+
+				setInputValid(true);
+			} catch (Exception e) {
+				setInputValid(false);
 			}
+		} while (!inputValid);
+		try {
+			file.saveQuiz(quiz);
+			System.out.println("\nSuccessfully deleted question.");
+		} catch (IOException e) {
+			System.out.println("\nUnable to delete question.");
+		}
 		setInputValid(true);
 	}
 }

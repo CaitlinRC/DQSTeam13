@@ -21,7 +21,5 @@ Problem Solving With Python*
 Historical Fiction*-
 Maths For Computer Science*
 
-Hi?
-Hello*
-Bye*-
-...*
+newQuestion?
+yes*-
