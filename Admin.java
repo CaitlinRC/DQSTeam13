@@ -5,14 +5,10 @@ import java.util.ArrayList;
 public class Admin {
 	private Input input = new Input();
 	private FileHandler file = new FileHandler();
-<<<<<<< HEAD
 	private Boolean inputValid;
 
 	public Admin() {
 	}
-=======
-	private Boolean inputValid=true;
->>>>>>> 008c7ab8b3b01a916ce48bdb0fef71d2bbe872d0
 	
     private void setInputValid(Boolean inputValid) {
         this.inputValid = inputValid;
