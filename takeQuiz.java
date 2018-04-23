@@ -21,7 +21,6 @@ public takeQuiz() {
     double timeStartStudent;
     double timeTakenStudent;
     double timeStartQuestion;
-    double[] timeTakenPerQuestion = new double[10];
 	setInputValid(true);
 	FileHandler files = new FileHandler();
 	do {
@@ -32,6 +31,8 @@ public takeQuiz() {
 			System.out.println("\nQuiz selected: " + fileName);
 			Quiz currentQuiz = new Quiz();
 			currentQuiz = loadQuiz(fileName, files);
+			int quizLength = currentQuiz.getQuestions().size();
+			double[] timeTakenPerQuestion = new double[quizLength];
 			timeStartStudent = System.currentTimeMillis();
 			for (int i = 0; i < currentQuiz.getQuestions().size(); i++) {
 				timeStartQuestion = System.currentTimeMillis();
@@ -52,15 +53,16 @@ public takeQuiz() {
 
 		  	System.out.println("\nQuiz Finished!\n");
 		  	try {TimeUnit.SECONDS.sleep(1);} catch(InterruptedException ex) {}
+		  	displayStudentStatistics(studentStatistics, quizLength);
 		  	displayStudentStatistics(studentStatistics, currentQuiz.getQuestions().size());
-
+		  	setInputValid(true);
 	  	} catch(Exception e) {
 	  		setInputValid(false);
 		}
 	  } while(!inputValid);
   }
 
-  public void displayStudentStatistics(StudentStatistics studentStatistics, int quiz_length) {
+  public void displayStudentStatistics(StudentStatistics studentStatistics, int quizLength) {
         int numberCorrect = studentStatistics.getNumberCorrect();
         double timeTaken = studentStatistics.getTimeTaken();
         double[] timeTakenPerQuestion = studentStatistics.getTimeTakenPerQuestion();
@@ -71,12 +73,12 @@ public takeQuiz() {
         System.out.println("Your time was: " + timeTaken + " seconds\n");
         try {TimeUnit.SECONDS.sleep(1);} catch(InterruptedException ex) {}
 
-        for (int i = 0; i < quiz_length; i++) {
+        for (int i = 0; i < quizLength; i++) {
             System.out.println("For question " + Integer.toString(i + 1) + " you took " + timeTakenPerQuestion[i] + " seconds");
             try {TimeUnit.MILLISECONDS.sleep(500);} catch(InterruptedException ex) {}
         }
 
-        System.out.println("\nYour average time per question was: " + averageTimePerQuestion);
+        System.out.println("Your average time per question was: " + averageTimePerQuestion);
         try {TimeUnit.SECONDS.sleep(1);} catch(InterruptedException ex) {}
     }
 

@@ -1,6 +1,5 @@
 import java.lang.Math;
 import java.util.stream.DoubleStream;
-import javax.swing.*;
 
 // Base class to be inherited from.
 
@@ -29,8 +28,8 @@ public class Statistics {
 		this.timeTaken = timeTaken;
 	}
 
-	public double getAverage(double n, int m) {
-		double average = Math.round((n / m) * 100.0) / 100.0;
+	public double getAverage(double[] n) {
+		double average = DoubleStream.of(n).sum() / n.length;
 		return average;
 	}
 
