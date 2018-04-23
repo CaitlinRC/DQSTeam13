@@ -31,6 +31,10 @@ public class Quiz {
 	public void setQuestions(ArrayList<Question> questions) {
 		this.questions = questions;
 	}
+
+	public int getSize() {
+		return this.questions.size();
+	}
 	
 	public void addQuestion(Question question) {
 		questions.add(question);

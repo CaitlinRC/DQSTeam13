@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Is this sky blue?
 Yes*-
 No*
@@ -23,3 +24,5 @@ Maths For Computer Science*
 
 newQuestion?
 yes*-
+=======
+>>>>>>> 6b5aad277ff35592191e229b16ef00075bb1f98d
