@@ -1,9 +1,7 @@
-runQuiz.class
-takeQuiz.class
-FileHandler.class
-Question.class
-test.class
-MainMenu.class
+/runQuiz.class
+/takeQuiz.class
+/FileHandler.class
+/Question.class
 /Input.class
 /Student.class
 /StudentDirectory.class
@@ -21,3 +19,7 @@ MainMenu.class
 /ClientStatistics.class
 /Statistics.class
 /StudentStatistics.class
+<<<<<<< HEAD
+=======
+
+>>>>>>> 2b4beacf7b3ddca182187cade0297517d3580bb1
