@@ -53,6 +53,7 @@ public takeQuiz() {
 		  	System.out.println("\nQuiz Finished!\n");
 		  	try {TimeUnit.SECONDS.sleep(1);} catch(InterruptedException ex) {}
 		  	displayStudentStatistics(studentStatistics, currentQuiz.getQuestions().size());
+		  	setInputValid(true);
 
 	  	} catch(Exception e) {
 	  		setInputValid(false);
@@ -76,7 +77,7 @@ public takeQuiz() {
             try {TimeUnit.MILLISECONDS.sleep(500);} catch(InterruptedException ex) {}
         }
 
-        System.out.println("\nYour average time per question was: " + averageTimePerQuestion);
+        System.out.println("Your average time per question was: " + averageTimePerQuestion);
         try {TimeUnit.SECONDS.sleep(1);} catch(InterruptedException ex) {}
     }
 

@@ -1,0 +1,16 @@
+Are we first year students?
+Yes*-
+No*
+
+Does Helen Phillips teach this module?
+Yes*-
+No*
+
+Is Swansea the capital of Wales?
+Yes*
+No*-
+
+Which of these is not part of the UK?
+Wales*
+Scotland*
+France*-

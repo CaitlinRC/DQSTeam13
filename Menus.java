@@ -85,27 +85,33 @@ public class Menus {
     				break;
     			}
     		} while (!inputValid);
+    		setInputValid(true);
     		break;
     	// Edit an existing quiz
     	case "2":
     		quiz = admin.loadQuiz(admin.selectExistingQuizFile());
     		setMenu("adminQuiz");
+    		setInputValid(true);
     		break;
     	// Add new admin account
     	case "3":
     		admin.addAdmin();
+    		setInputValid(true);
     		break;
     	// New schoool
     	case "4":
     		admin.addSchool();
+    		setInputValid(true);
     		break;
     	// Display schools
     	case "5":
     		file.readSchoolsFile();
+    		setInputValid(true);
     		break;
     	// Logout
     	case "6":
     		setMenu("main");
+    		setInputValid(true);
     		break;
     	// Handle invalid input
     	default:
@@ -120,18 +126,22 @@ public class Menus {
 			// Add a new question
 	    	case "1":
 	    		admin.addQuestion(quiz);
+	    		setInputValid(true);
 	    		break;
 	    	// Delete a question	
 	    	case "2":
 	    		admin.deleteQuestion(quiz);
+	    		setInputValid(true);
 	    		break;
 	    	// Edit question
 	    	case "3":
 	    		admin.editQuestion(quiz);
+	    		setInputValid(true);
 	    		break;
 	    	// Back to dashboard
 	    	case "4":
 	    		setMenu("admin");
+	    		setInputValid(true);
 	    		break;	
 	    	// Handle invalid input	
 	    	default:
