@@ -167,6 +167,11 @@ public class Input {
 		return cleanseInput(in.nextLine());
     }
     
+    public String editQuestion2() {
+System.out.println("\nPlease select a question to edit");
+		return cleanseInput(in.nextLine());
+    }
+    
     public String addQuiz(Boolean inputValid) {
     	if(inputValid) {
     		System.out.println("\nPlease select one of the following options:");

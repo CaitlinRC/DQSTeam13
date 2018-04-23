@@ -120,64 +120,36 @@ public class Admin {
 	  }
 	  
 	  public void editQuestion(Quiz quiz) {
-<<<<<<< HEAD
-		  setInputValid(true);
-		  do {
-			  try {
-				  int selection = (Integer.parseInt(input.deleteQuestion(inputValid, quiz)));
-				  if(selection == 0) {
-						return;
-				  }
-				  Question question = quiz.getQuestions().get(selection-1);
-				  question.setQuestionText(input.getNewQuizQuestion());
-				  question.getAnswerList().clear();
-				  String numberOfAnswers = input.getNewQuizAnswers();
-				  boolean _rightAnswerSelected = false;
-				  for (int i = 0; i < Integer.parseInt(numberOfAnswers); i++) {
-					  Answer answer = new Answer();
-					  answer.setTitle(input.getAnswer(i + 1)); 
-					  answer.setCorrect(false);
-					  if (_rightAnswerSelected == false) {
-						  if (input.rightAnswer().equals("y")) {
-							  answer.setCorrect(true);
-							  _rightAnswerSelected = true;
-						  }
+		  	int inputtedIndex = Integer.parseInt(input.editQuestion2()) - 1;
+		  	if (inputtedIndex >= quiz.getSize() || inputtedIndex < 0) {
+		  		System.out.println("Sorry but that is an invalid index");
+		  		return;
+		  	}
+			  Question question = quiz.getQuestions().get(inputtedIndex);
+			  question.setQuestionText(input.getNewQuizQuestion());
+			  question.getAnswerList().clear();
+			  String numberOfAnswers = input.getNewQuizAnswers();
+			  boolean _rightAnswerSelected = false;
+			  for (int i = 0; i < Integer.parseInt(numberOfAnswers); i++) {
+				  Answer answer = new Answer();
+				  answer.setTitle(input.getAnswer(i + 1)); 
+				  answer.setCorrect(false);
+				  if (_rightAnswerSelected == false) {
+					  if (input.rightAnswer().equals("y")) {
+						  answer.setCorrect(true);
+						  _rightAnswerSelected = true;
 					  }
-					  question.addAnswer(answer);
-=======
-	  	int inputtedIndex = Integer.parseInt(input.editQuestion()) - 1;
-	  	if (inputtedIndex >= quiz.getSize() || inputtedIndex < 0) {
-	  		System.out.println("Sorry but that is an invalid index");
-	  		return;
-	  	}
-		  Question question = quiz.getQuestions().get(inputtedIndex);
-		  question.setQuestionText(input.getNewQuizQuestion());
-		  question.getAnswerList().clear();
-		  String numberOfAnswers = input.getNewQuizAnswers();
-		  boolean _rightAnswerSelected = false;
-		  for (int i = 0; i < Integer.parseInt(numberOfAnswers); i++) {
-			  Answer answer = new Answer();
-			  answer.setTitle(input.getAnswer(i + 1)); 
-			  answer.setCorrect(false);
-			  if (_rightAnswerSelected == false) {
-				  if (input.rightAnswer().equals("y")) {
-					  answer.setCorrect(true);
-					  _rightAnswerSelected = true;
->>>>>>> 6b5aad277ff35592191e229b16ef00075bb1f98d
 				  }
-
-			  }	 catch (Exception e) {
-				  setInputValid(false);
+				  question.addAnswer(answer);
 			  }
-		  } while (!inputValid);
-		  try {
-			  file.saveQuiz(quiz);
-			  System.out.println("\nSuccessfully added a question into the database.");
-		  } catch (IOException e) {
-			  System.out.println("\nUnable to add question into the database.");
+			  try {
+				  file.saveQuiz(quiz);
+				  System.out.println("\nSuccessfully added a question into the database.");
+			  } catch (IOException e) {
+				  System.out.println("\nUnable to add question into the database.");
+			  }
+			  setInputValid(true);
 		  }
-		  setInputValid(true);
-	  }
 
 	public void addQuestion(Quiz quiz) {
 		Question question = new Question();
@@ -214,26 +186,7 @@ public class Admin {
 				if (selection == 0) {
 					return;
 				}
-				try {
-<<<<<<< HEAD
 					quiz.deleteQuestionByIndex(selection - 1);
-				} catch (IndexOutOfBoundsException e) {
-					System.out.println("\nQuestion does not exist. Therefore, can not be deleted.\n");
-=======
-					int selection = (Integer
-							.parseInt(input.deleteQuestion(inputValid, quiz.getQuestions().size())));
-					try {
-						quiz.deleteQuestionByIndex(selection - 1);
-					} catch (IndexOutOfBoundsException e) {
-						System.out.println("\nQuestion does not exist. Therefore, can not be deleted.\n");
-						return;
-					}
-					setInputValid(true);
-				} catch (Exception e) {
-					setInputValid(false);
->>>>>>> 6b5aad277ff35592191e229b16ef00075bb1f98d
-				}
-
 				setInputValid(true);
 			} catch (Exception e) {
 				setInputValid(false);
