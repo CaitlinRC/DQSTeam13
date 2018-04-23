@@ -226,22 +226,22 @@ public class Admin {
 		Scanner input = new Scanner(System.in);
 		School school = new School();
 
-		System.out.println("Enter the name of the school you wish to enter: ");
+		System.out.println("\nEnter the name of the school you wish to enter: ");
 		String name = input.nextLine();
 		while(!name.matches("[a-zA-Z ]+")){
-			System.out.println("Enter a valid name!");
+			System.out.println("\nEnter a valid name:");
 			name = input.nextLine();
 		}
 		school.setName(name);
 
-		System.out.println("Enter the school year of the students: ");
+		System.out.println("\nEnter the school year of the students: ");
 		String year = input.nextLine();
 		while(!year.matches("[0-9]+")){
-			System.out.println("Enter a valid year!");
+			System.out.println("\nEnter a valid year:");
 			year = input.nextLine();
 		}
 		school.setYear(year);
-
+		System.out.println("\n");
 		try{
 			FileWriter writer = new FileWriter("Files/admin/Schools.txt", true);
 			BufferedWriter bw = new BufferedWriter(writer);
