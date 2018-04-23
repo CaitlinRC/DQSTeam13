@@ -10,7 +10,7 @@ public class takeQuiz {
   	String restart = "";
   	private Boolean inputValid;
   	private Input in = new Input();
-  
+
   	private void setInputValid(Boolean inputValid) {
     	this.inputValid = inputValid;
   }
@@ -53,7 +53,7 @@ public takeQuiz() {
 
 		  	System.out.println("\nQuiz Finished!\n");
 		  	try {TimeUnit.SECONDS.sleep(1);} catch(InterruptedException ex) {}
-		  	displayStudentStatistics(studentStatistics, quizLength);
+		  	//displayStudentStatistics(studentStatistics, quizLength);
 		  	displayStudentStatistics(studentStatistics, currentQuiz.getQuestions().size());
 		  	setInputValid(true);
 	  	} catch(Exception e) {

@@ -1,4 +1,4 @@
-Is this sky blue?
+Is the sky blue?
 Yes*-
 No*
 
@@ -6,7 +6,7 @@ Is this the second question?
 Yes*-
 No*
 
-What is the name of our planet?
+What is our planet called?
 Mars*
 Earth*-
 
