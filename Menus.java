@@ -2,6 +2,10 @@ public class Menus {
 	private Input input = new Input();
 	private Boolean inputValid;
 	private String menu;
+	private Quiz quiz = new Quiz();
+	private Admin admin = new Admin();
+	private AdminAccount adminAccount = new AdminAccount();
+	private FileHandler file = new FileHandler();
 	
     public Menus() {
         setMenu("main"); // Set the main menu as the entry point
@@ -31,8 +35,8 @@ public class Menus {
 	    		break;
 	    	// Admin login	
 	    	case "2":
-				if (!Admin.detectAdminFile()) {
-					if (Admin.adminLogin()) {
+				if (!file.detectAdminFile()) {
+					if (adminAccount.adminLogin()) {
 		    			setMenu("admin");
 		    			break;
 		    		} else {
@@ -58,16 +62,19 @@ public class Menus {
     	switch (input.adminMenu(inputValid)) {
     		// Add a new quiz
 	    	case "1":
-	    		Admin.addNewQuiz();
+	    		quiz = new Quiz();
+	    		quiz.setTitle(admin.addNewQuiz());
+	    		setMenu("adminQuiz");
 	    		// call method for adding new quiz
 	    		break;
 	    	// Edit an existing quiz
 	    	case "2":
-	    		Admin.selectExistingQuizFile();
+	    		quiz = admin.loadQuiz(admin.selectExistingQuizFile());
+	    		setMenu("adminQuiz");
 	    		// call method for editing quiz
 	    		break;
 	    	case "3":
-	    		Admin.addAdmin();
+	    		admin.addAdmin();
 	    		// call method for new admin
 	    		break;	    		
 	    	case "4":
@@ -92,4 +99,30 @@ public class Menus {
 	    		break; 
     	}
     }
+    
+	// Admin quiz dashboard
+	public void adminQuizMenu() {
+	    	switch (input.adminQuizMenu(inputValid, quiz.getTitle())) {
+			// Add a new question
+	    	case "1":
+	    		admin.addQuestion(quiz);
+	    		break;
+	    	// Delete a question	
+	    	case "2":
+	    		admin.deleteQuestion(quiz);
+	    		break;
+	    	// Edit question
+	    	case "3":
+	    		admin.editQuestion(quiz);
+	    		break;
+	    	// Back to dashboard
+	    	case "4":
+	    		setMenu("admin");
+	    		break;	
+	    	// Handle invalid input	
+	    	default:
+	    		setInputValid(false);
+	    		break; 
+	    	}
+	}
 }

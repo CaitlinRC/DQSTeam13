@@ -1,176 +1,175 @@
-import java.util.*;
-import java.io.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class Admin {
-
-	private static int adminID;
-	private static String password;
-	public static String adminName;
-	private static String file_path = "Files/admin/admin_database.txt";
-	private static Scanner in = new Scanner(System.in);
-
-	public static boolean detectAdminFile() { //checks if there's admin file
-		try {
-			File directory = new File("Files/admin/");
-			directory.mkdir();
-			File file = new File(file_path);
-
-			boolean isFileNew = file.createNewFile();
-
-			return isFileNew;
-		} catch (IOException e) {
-			System.out.println("Unable to create admin database file this time.");
-			return false;
-		}
-	}
-//main function to call when loggin in
-	public static boolean adminLogin() {
-
-		System.out.print("\n Admin ID: ");
-		String _adminID = in.nextLine();
-		while (!_adminID.matches("[1-9][0-9]{4}")) {
-			System.out.print("\nInvalid Admin ID.\n Admin ID: ");
-			_adminID = in.nextLine();
-		}
-
-		System.out.print(" Password: ");
-		String _password = in.nextLine();
-		while (_password.length()<6) {
-			System.out.print("\nInvalid password.\n Password: ");
-			_password = in.nextLine();
-		}
-
-		if (verifyLogin(Integer.parseInt(_adminID), _password)) {
-			System.out.println("\nLogin verified.\nLogged in as " + adminName + ".\n");
-			return true;
-		} else {
-			System.out.println("\nIncorrect Admin ID/Password.\n");
-			return false;
-		}
-	}
-//verify login. Authenticates parameters if they match what's written in the admin_database
-	private static boolean verifyLogin(int _adminID, String _password) {
-		adminID = _adminID;
-		password = _password;
-
-		try {
-			File file = new File(file_path);
-
-			FileReader file_reader = new FileReader(file);
-			BufferedReader buff_reader = new BufferedReader(file_reader);
-
-			String row;
-			while ((row = buff_reader.readLine()) != null) {
-				String content[] = row.split(",");
-
-				if ((Integer.parseInt(content[0]))==adminID && password.equals(content[1])) {
-					adminName = content[2];
-					return true;
-				}
+	private Input input = new Input();
+	private FileHandler file = new FileHandler();
+	private Boolean inputValid;
+	
+    private void setInputValid(Boolean inputValid) {
+        this.inputValid = inputValid;
+    }
+	
+	public void addAdmin(){
+		// Admin ID
+		AdminAccount admin = new AdminAccount();
+		do {
+			try {
+				admin.setAdminID(input.getAdminID(inputValid));
+				setInputValid(true);
 			}
-			buff_reader.close();
-			return false;
-		} catch (IOException e) {
-			System.out.println("Unable to read admin database file this time.");
-			return false;				
-		}
-	}
+    		catch(IllegalArgumentException e) {
+    			setInputValid(false);
+    		}
+		} while(!inputValid);
+		
+		// Admin password
+		do {
+			try {
+				admin.setPassword(input.getAdminPassword(inputValid));
+				setInputValid(true);
+			}
+    		catch(IllegalArgumentException e) {
+    			setInputValid(false);
+    		}
+		} while(!inputValid);
 
-	public static void addAdmin(){
-		System.out.println("Enter a valid admin ID (Requirements: 5 digits): ");
-		String _adminID = in.nextLine();
-		while (!_adminID.matches("[1-9][0-9]{4}")) {
-			System.out.print("\nInvalid Admin ID.\nEnter a valid admin ID (Requirements: 5 digits, Does not start with 0): ");
-			_adminID = in.nextLine();
-		}
-
-		System.out.print("Enter password (Requirements: minimum of 6 characters): ");
-		String _password = in.nextLine();
-		while (_password.length()<6) {
-			System.out.print("\nInvalid password.\nEnter password (Requirements: minimum of 6 characters): ");
-			_password = in.nextLine();
-		}
-
-		System.out.print("Enter Admin Name (Requirements: no digits): ");
-		String _adminName = in.nextLine();
-		while (!_adminName.matches("[A-Za-z ]+")) {
-			System.out.print("\nInvalid Admin ID.\nEnter Admin Name (Requirements: no digits): ");
-			_adminName = in.nextLine();
-		}
-
+		// Admin name
+		do {
+			try {
+				admin.setAdminID(input.getAdminPassword(inputValid));
+				setInputValid(true);
+			}
+    		catch(IllegalArgumentException e) {
+    			setInputValid(false);
+    		}
+		} while(!inputValid);
+	
+		// Add new admin to file
+		
+		
+		// Move this to file handler
 		try {
-			FileWriter file_write = new FileWriter(file_path, true);
-
-			String new_admin = _adminID + "," + _password + "," + _adminName;
+			FileWriter file_write = new FileWriter("Files/admin/admin_database.txt", true);
+			String new_admin = admin.getAdminID() + "," + admin.getPassword() + "," + admin.getAdminName();
 			String s = System.getProperty("line.separator");
-
 			file_write.write(s + new_admin);
 			file_write.close();
-			System.out.println("\nSuccessfully added " + _adminName + " into the database.\n");
+			System.out.println("\nSuccessfully added " + admin.getAdminName() + " into the database.\n");
 		} catch (IOException e) {
-			System.out.println("\nUnable to add " + _adminName + " into the database.\n");
-		}
-	}
-	private static void selectOperation(String file_name) {
-		boolean _isDone = false;
-		while (_isDone==false) {
-			System.out.println("\nYou may do the following with " + file_name + ": ");
-			System.out.println("  1. Add a new question");
-			System.out.println("  2. Delete a question by index");
-			System.out.println("  3. Edit a question by index");
-			System.out.println("  4. Back to dashboard\n");
-			System.out.print("Enter Operation: ");
-
-			switch (in.nextInt()) {
-				case 1://adding a new question to file
-					AdminFileHandler.addQuestion(file_name, true);
-					break;
-
-				case 2:
-					AdminFileHandler.deleteQuestion(file_name);
-					//to do
-					break;
-
-				case 3://replacing a question with new one to file
-					AdminFileHandler.addQuestion(file_name, false);
-					break;
-
-				case 4:
-					_isDone = true;
-					break;
-			}
+			System.out.println("\nUnable to add " + admin.getAdminName() + " into the database.\n");
 		}
 	}
 
-	public static void addNewQuiz() {
-		FileHandler file = new FileHandler();
-		System.out.print("\nEnter the topic/theme name: ");
-		String _input = in.nextLine();
+	public String addNewQuiz() {
+		String filename = "";
 		try {
-			file.createFile(_input);
+			filename = input.getNewQuizName();
+			file.createFile(filename);
 		} catch (IOException e) {
 			System.out.println("Unable to create new file.");
 		}
-
-		selectOperation(_input);
-
+		return filename;
 	}
-
-	public static void selectExistingQuizFile() {
+	
+	public String selectExistingQuizFile() {
 		FileHandler file = new FileHandler(); 
 		ArrayList<String> quizList = file.getQuizList("Files/quizzes/"); //reused a code from FileHandler.java to obtain all exisitng files
 		System.out.println("\nExisting quiz file(s) you may edit:");
 		for (int i=0;i<=quizList.size()-1;i++) {
 			System.out.println("  " + (i+1) + ". " + quizList.get(i));
 		}
+		return quizList.get(Integer.parseInt(input.getQuizToEdit(quizList))-1);
+	}
+	
+	  public Quiz loadQuiz(String fileName) {
+		  Quiz currentQuiz = new Quiz();
+		  try {
+			  currentQuiz = file.readFromFile(fileName);
+		  } catch (IOException e) {
+			  System.out.println("Sorry there was a problem");
+			  e.printStackTrace();
+		  }
+		  return currentQuiz;
+	  }
+	  
+	  public void editQuestion(Quiz quiz) {
+		  Question question = quiz.getQuestions().get(Integer.parseInt(input.editQuestion())-1);
+		  question.setQuestionText(input.getNewQuizQuestion());
+		  question.getAnswerList().clear();
+		  String numberOfAnswers = input.getNewQuizAnswers();
+		  boolean _rightAnswerSelected = false;
+		  for (int i = 0; i < Integer.parseInt(numberOfAnswers); i++) {
+			  Answer answer = new Answer();
+			  answer.setTitle(input.getAnswer(i + 1)); 
+			  answer.setCorrect(false);
+			  if (_rightAnswerSelected == false) {
+				  if (input.rightAnswer().equals("y")) {
+					  answer.setCorrect(true);
+					  _rightAnswerSelected = true;
+				  }
+			  }
+			  question.addAnswer(answer);
+		  }
+		  try {
+			  file.saveQuiz(quiz);
+			  System.out.println("\nSuccessfully added a question into the database.");
+		  } catch (IOException e) {
+			  System.out.println("\nUnable to add question into the database.");
+		  }
+		  setInputValid(true);
+	  }
 
-		System.out.print("\nSelection (choose between: 1 - " + quizList.size() + "): ");
-		while (!in.hasNextInt()) { //|| in.nextInt()>quizList.size() || in.nextInt()<1) {
-			System.out.print("\nInvalid Selection.\nSelection (choose between: 1 - " + quizList.size() + "): ");
-			in.next();
-		}		
-		int _input = in.nextInt();
-
-		selectOperation(quizList.get(_input - 1));
+	public void addQuestion(Quiz quiz) {
+		Question question = new Question();
+		question.setQuestionText(input.getNewQuizQuestion());
+		String numberOfAnswers = input.getNewQuizAnswers();
+		boolean _rightAnswerSelected = false;
+		for (int i = 0; i < Integer.parseInt(numberOfAnswers); i++) {
+			Answer answer = new Answer();
+			answer.setTitle(input.getAnswer(i + 1)); 
+			answer.setCorrect(false);
+			if (_rightAnswerSelected == false) {
+				if (input.rightAnswer().equals("y")) {
+					answer.setCorrect(true);
+					_rightAnswerSelected = true;
+				}
+			}
+			question.addAnswer(answer);
+		}
+		quiz.addQuestion(question);
+		try {
+			file.saveQuiz(quiz);
+			System.out.println("\nSuccessfully added a question into the database.");
+		} catch (IOException e) {
+			System.out.println("\nUnable to add question into the database.");
+		}
+		setInputValid(true);
+	}
+	
+	public void deleteQuestion(Quiz quiz) {
+			do {
+				try {
+					int selection = (Integer
+							.parseInt(input.deleteQuestion(inputValid, quiz.getQuestions().size())));
+					try {
+						quiz.deleteQuestionByIndex(selection - 1);
+					} catch (IndexOutOfBoundsException e) {
+						System.out.println("\nQuestion does not exist. Therefore, can not be deleted.\n");
+					}
+					setInputValid(true);
+				} catch (Exception e) {
+					setInputValid(false);
+				}
+			} while (!inputValid);
+			System.out.println(quiz.getQuestions());
+			try {
+				file.saveQuiz(quiz);
+				System.out.println("\nSuccessfully deleted question.");
+			} catch (IOException e) {
+				System.out.println("\nUnable to delete question.");
+			}
+		setInputValid(true);
 	}
 }

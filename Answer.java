@@ -36,4 +36,13 @@ public class Answer {
 		answerCopy.setCorrect(getCorrect());
 		return answerCopy;
 	}
+	
+	public String writeFormat() {
+		StringBuffer temp = new StringBuffer();
+		temp.append(getTitle() + "*");
+		if (getCorrect()) {
+			temp.append("-");
+		}
+		return temp.toString();
+	}
 }

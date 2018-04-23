@@ -11,6 +11,9 @@ public class runQuiz {
 		    	case "admin":
 		    		menus.adminMenu();
 		    		break;
+		    	case "adminQuiz":
+		    		menus.adminQuizMenu();
+		    		break;
   		}
   	}
   }

@@ -2,6 +2,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -20,18 +21,17 @@ public class FileHandler {
         private void addQuestion (Question inQuestion, BufferedWriter bw) throws IOException {
                bw.append(inQuestion.toFileString());
         }
-
-        public void saveCurrentQuiz (ArrayList<Question> allQuestions, String fileName) throws IOException {
-               createFile(fileName);            
-               File file = new File("Files/quizzes", fileName + ".txt");
-               FileWriter fw = new FileWriter(file, true);
+        
+        public void saveQuiz (Quiz quiz) throws IOException {           
+               File file = new File("Files/quizzes", quiz.getTitle() + ".txt");
+               FileWriter fw = new FileWriter(file);
                BufferedWriter bw = new BufferedWriter(fw);
-               for (int i = 0; i < allQuestions.size(); i++) {
-                    if (i!=allQuestions.size()-1) {
-                        addQuestion(allQuestions.get(i), bw);
+               for (int i = 0; i < quiz.getQuestions().size(); i++) {
+                    if (i!=quiz.getQuestions().size()-1) {
+                        addQuestion(quiz.getQuestions().get(i), bw);
                         bw.append("\r\n");
                     } else {
-                        addQuestion(allQuestions.get(i), bw);
+                        addQuestion(quiz.getQuestions().get(i), bw);
                     }
                }
                bw.close();
@@ -43,24 +43,30 @@ public class FileHandler {
             File file = new File("Files/quizzes", fileName + ".txt");
             Scanner scanner = new Scanner(file); 
             Question question = new Question();
-            while(scanner.hasNextLine()) {
-                String line = scanner.nextLine();
-                if (line.contains("?")){
-                    question = new Question();
-                    question.setQuestionText(line);
-                }
-                else if(line.contains("-")) {
-                    String title = new String();
-                    title = line.substring(0, line.length() - 2);
-                    question.addAnswer(title, true);
-                }
-                else if (line.contains("*")) {
-                    String title = new String(); 
-                    title = line.substring(0, line.length() - 1);
-                    question.addAnswer(title, false);
-                }
-                else {
-                    quiz.addQuestion(question);
+            if (file.length() == 0) { // Check if the file is empty
+                // Do nothing
+                // This is to allow existing empty (blank) files to be loaded
+            }
+            else {
+                while(scanner.hasNextLine()) {
+                    String line = scanner.nextLine();
+                    if (line.contains("?")){
+                        question = new Question();
+                        question.setQuestionText(line);
+                    }
+                    else if(line.contains("-")) {
+                        String title = new String();
+                        title = line.substring(0, line.length() - 2);
+                        question.addAnswer(title, true);
+                    }
+                    else if (line.contains("*")) {
+                        String title = new String(); 
+                        title = line.substring(0, line.length() - 1);
+                        question.addAnswer(title, false);
+                    }
+                    else {
+                        quiz.addQuestion(question);
+                    }
                 }
             }
             quiz.addQuestion(question); // to make sure the last question gets added
@@ -78,4 +84,19 @@ public class FileHandler {
             }
             return quizList;
         }
+        
+    	public boolean detectAdminFile() { //checks if there's admin file
+    		try {
+    			File directory = new File("Files/admin/");
+    			directory.mkdir();
+    			File file = new File("Files/admin/admin_database.txt");
+
+    			boolean isFileNew = file.createNewFile();
+
+    			return isFileNew;
+    		} catch (IOException e) {
+    			System.out.println("Unable to create admin database file this time.");
+    			return false;
+    		}
+    	}
 }

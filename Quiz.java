@@ -37,9 +37,9 @@ public class Quiz {
 	}
 
 	public void deleteQuestionByIndex(int position) {
-		questions.remove(position); //used by the admin to delete a specific question 
+		questions.remove(position);
 	}
-
+	
 	public void replaceQuestionByIndex(int position, Question question) {
 		questions.set(position, question);
 	}

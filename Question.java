@@ -8,6 +8,10 @@ public class Question {
 		answerList = new ArrayList<Answer>();
 	}
 
+	public ArrayList<Answer> getAnswerList() {
+		return answerList;
+	}
+	
 	public Question(String inQuestion, ArrayList<Answer> inAnswerList) {
 		questionText = inQuestion;
 		answerList = inAnswerList;
@@ -19,6 +23,10 @@ public class Question {
 	
 	public void setQuestionText(String questionText) {
 		this.questionText = questionText;
+	}
+	
+	public void addAnswer(Answer answer) {
+		answerList.add(answer);
 	}
 
 	public int getCorrectPos() {
@@ -63,7 +71,6 @@ public class Question {
 		for (int i = 0; i < answerList.size(); i++) {
 			temp.append((i + 1) + ". " + answerList.get(i).getTitle() + "\n");
 		}
-		//temp.append("\n");
 		return temp.toString();
 	}
 
@@ -71,12 +78,8 @@ public class Question {
 		StringBuffer temp = new StringBuffer();
 		temp.append(questionText + "\r\n");
 		for (int i = 0; i < answerList.size(); i++) {
-			if (i == getCorrectPos()-1) {
-				temp.append(answerList.get(i).getTitle() + "*-\r\n");
-			} else {
-				temp.append(answerList.get(i).getTitle() + "*\r\n");
-			}
-		}
+			temp.append(answerList.get(i).writeFormat() + "\n");
+		} 
 		return temp.toString();
 	}
 	
