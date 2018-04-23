@@ -74,7 +74,7 @@ public class Menus {
     				setMenu("adminQuiz");
     				setInputValid(true);
     				break;
-    			// Copy quiz
+    				// Copy quiz
     			case "2":
     				quiz = admin.addNewQuizCopy();
     				setMenu("adminQuiz");
@@ -85,35 +85,29 @@ public class Menus {
     				break;
     			}
     		} while (!inputValid);
-    		// call method for adding new quiz
     		break;
-    		// Edit an existing quiz
+    	// Edit an existing quiz
     	case "2":
     		quiz = admin.loadQuiz(admin.selectExistingQuizFile());
     		setMenu("adminQuiz");
-    		// call method for editing quiz
     		break;
+    	// Add new admin account
     	case "3":
     		admin.addAdmin();
-    		// call method for new admin
     		break;
+    	// New schoool
     	case "4":
-    		// This function is for calling for a new school to be added
-    		AddingSchool addingschool = new AddingSchool();
-    		addingschool.Added();
+    		admin.addSchool();
     		break;
-
+    	// Display schools
     	case "5":
-    		// this functions displays all current people inside of the list
-    		DisplaySchool displayschool = new DisplaySchool();
-    		displayschool.Display();
+    		file.readSchoolsFile();
     		break;
-    		// Handle invalid input
-    		// Logout
+    	// Logout
     	case "6":
     		setMenu("main");
     		break;
-
+    	// Handle invalid input
     	default:
     		setInputValid(false);
     		break;

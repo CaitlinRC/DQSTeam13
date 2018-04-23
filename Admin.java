@@ -1,6 +1,9 @@
+import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Admin {
 	private Input input = new Input();
@@ -216,6 +219,40 @@ public class Admin {
 		System.out.println("The average time taken per quiz is: ");
 		for (int i = 0; i < 10; i++) {
 			System.out.println("The average time taken for question " + Integer.toString(i + 1) + " is: ");
+		}
+	}
+	
+	public void addSchool() {
+		Scanner input = new Scanner(System.in);
+		School school = new School();
+
+		System.out.println("Enter the name of the school you wish to enter: ");
+		String name = input.nextLine();
+		while(!name.matches("[a-zA-Z ]+")){
+			System.out.println("Enter a valid name!");
+			name = input.nextLine();
+		}
+		school.setName(name);
+
+		System.out.println("Enter the school year of the students: ");
+		String year = input.nextLine();
+		while(!year.matches("[0-9]+")){
+			System.out.println("Enter a valid year!");
+			year = input.nextLine();
+		}
+		school.setYear(year);
+
+		try{
+			FileWriter writer = new FileWriter("Files/admin/Schools.txt", true);
+			BufferedWriter bw = new BufferedWriter(writer);
+			PrintWriter out = new PrintWriter(writer);
+
+			bw.write(name + "," + "Year:" + year);
+			bw.newLine();
+			bw.close();
+		}
+		catch (Exception e) {
+			System.out.println(e);
 		}
 	}
 }

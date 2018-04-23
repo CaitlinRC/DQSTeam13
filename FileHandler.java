@@ -1,6 +1,8 @@
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -97,6 +99,25 @@ public class FileHandler {
     		} catch (IOException e) {
     			System.out.println("Unable to create admin database file this time.");
     			return false;
+    		}
+    	}
+    	
+    	public void readSchoolsFile() {
+    		try {
+    			File file = new File("Files/admin", "Schools.txt");
+    			FileReader filereader = new FileReader(file);
+    			BufferedReader buff = new BufferedReader(filereader);
+    			StringBuffer stringbuff = new StringBuffer();
+    			String line;
+
+    			while((line = buff.readLine()) != null) {
+    				stringbuff.append(line);
+    				stringbuff.append("\n");
+    			}
+    			System.out.println(stringbuff.toString());
+    			
+    			}catch (IOException e) {
+    				e.printStackTrace();
     		}
     	}
 }
