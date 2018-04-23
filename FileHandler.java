@@ -70,8 +70,8 @@ public class FileHandler {
                         quiz.addQuestion(question);
                     }
                 }
+                quiz.addQuestion(question); // to make sure the last question gets added
             }
-            quiz.addQuestion(question); // to make sure the last question gets added
             scanner.close();
             return quiz;
         }
