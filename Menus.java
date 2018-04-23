@@ -40,12 +40,15 @@ public class Menus {
 				if (!file.detectAdminFile()) {
 					if (adminAccount.adminLogin()) {
 		    			setMenu("admin");
+		    			setInputValid(true);
 		    			break;
 		    		} else {
+		    			setInputValid(true);
 		    			break;
 		    		}
 				} else { 
 				  		System.out.println("\nNo data to read."); //means text file is empty
+				  		setInputValid(true);
 				  		break;
 				}
 	    	// Exit
@@ -120,33 +123,33 @@ public class Menus {
     	}
     }
     
-	// Admin quiz dashboard
+	/// Admin quiz dashboard
 	public void adminQuizMenu() {
-	    	switch (input.adminQuizMenu(inputValid, quiz)) {
-			// Add a new question
-	    	case "1":
-	    		admin.addQuestion(quiz);
-	    		setInputValid(true);
-	    		break;
-	    	// Delete a question	
-	    	case "2":
-	    		admin.deleteQuestion(quiz);
-	    		setInputValid(true);
-	    		break;
-	    	// Edit question
-	    	case "3":
-	    		admin.editQuestion(quiz);
-	    		setInputValid(true);
-	    		break;
-	    	// Back to dashboard
-	    	case "4":
-	    		setMenu("admin");
-	    		setInputValid(true);
-	    		break;	
-	    	// Handle invalid input	
-	    	default:
-	    		setInputValid(false);
-	    		break; 
-	    	}
-	}
+    	switch (input.adminQuizMenu(inputValid, quiz)) {
+		// Add a new question
+    	case "1":
+    		admin.addQuestion(quiz);
+    		setInputValid(true);
+    		break;
+    	// Delete a question	
+    	case "2":
+    		admin.deleteQuestion(quiz);
+    		setInputValid(true);
+    		break;
+    	// Edit question
+    	case "3":
+    		admin.editQuestion(quiz);
+    		setInputValid(true);
+    		break;
+    	// Back to dashboard
+    	case "4":
+    		setMenu("admin");
+    		setInputValid(true);
+    		break;	
+    	// Handle invalid input	
+    	default:
+    		setInputValid(false);
+    		break; 
+    	}
+    }
 }

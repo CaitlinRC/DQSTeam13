@@ -48,10 +48,10 @@ public class Input {
 		else {
 			System.out.println("\nPlease select a valid menu option:");
 		}
-		System.out.println("  1. Add a new question");
-		System.out.println("  2. Delete a question by no.");
-		System.out.println("  3. Edit a question by index");
-		System.out.println("  4. Back to dashboard\n");
+		System.out.println("1) Add a new question");
+		System.out.println("2) Delete a question by no.");
+		System.out.println("3) Edit a question by index");
+		System.out.println("4) Back to dashboard\n");
 		return cleanseInput(in.nextLine());
     }
     
@@ -83,7 +83,7 @@ public class Input {
     /* -------------- Admin -------------- */
     public String getAdminID(Boolean inputValid) {
     	if(inputValid) {
-			System.out.println("Enter your admin ID (Requirements: 5 digits):");
+			System.out.println("\nEnter your admin ID (Requirements: 5 digits):");
 		}
 		else {
 			System.out.println("\nInvalid Admin ID.\nEnter a valid admin ID (Requirements: 5 digits):");
@@ -93,7 +93,7 @@ public class Input {
     
     public String getAdminPassword(Boolean inputValid) {
     	if(inputValid) {
-			System.out.println("Enter password (Requirements: minimum of 6 characters):");
+			System.out.println("\nEnter password (Requirements: minimum of 6 characters):");
 		}
 		else {
 			System.out.println("\nInvalid Admin password.\nEnter a valid password (Requirements: minimum of 6 characters):");
@@ -103,12 +103,12 @@ public class Input {
     
     public String getAdminName(Boolean inputValid) {
     	if(inputValid) {
-			System.out.println("Enter Admin Name (Requirements: no digits):");
+			System.out.println("\nEnter Admin Name (Requirements: no digits):");
 		}
 		else {
 			System.out.println("\nInvalid Admin name.\nEnter valid Admin Name (Requirements: no digits):");
 		}
-		return cleanseInput(in.nextLine());
+    	return cleanseInput(in.nextLine());
     }
     
     public String getNewQuizName() {
@@ -132,7 +132,7 @@ public class Input {
     }
     
     public String getAnswer(int number) {
-    	System.out.println("Enter answer no. " + (number) + " here:");
+    	System.out.println("\nEnter answer no. " + (number) + " here:");
 		return cleanseInput(in.nextLine());
     }
     

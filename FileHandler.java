@@ -109,7 +109,7 @@ public class FileHandler {
     			BufferedReader buff = new BufferedReader(filereader);
     			StringBuffer stringbuff = new StringBuffer();
     			String line;
-
+    			stringbuff.append("\n");
     			while((line = buff.readLine()) != null) {
     				stringbuff.append(line);
     				stringbuff.append("\n");

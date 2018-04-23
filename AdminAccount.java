@@ -39,7 +39,7 @@ public class AdminAccount {
 	}
 
 	public void setAdminName(String adminName) {
-		if(password.matches("[A-Za-z ]+")){
+		if(password.matches("^[a-zA-Z\\s]*$")){
 			this.adminName = adminName;
 		}
 		else {
@@ -50,14 +50,14 @@ public class AdminAccount {
 //main function to call when loggin in
 	public boolean adminLogin() {
 
-		System.out.print("\n Admin ID: ");
+		System.out.print("\nAdmin ID: ");
 		String _adminID = in.nextLine();
 		while (!_adminID.matches("[1-9][0-9]{4}")) {
 			System.out.print("\nInvalid Admin ID.\n Admin ID: ");
 			_adminID = in.nextLine();
 		}
 
-		System.out.print(" Password: ");
+		System.out.print("Password: ");
 		String _password = in.nextLine();
 		while (_password.length()<6) {
 			System.out.print("\nInvalid password.\n Password: ");
