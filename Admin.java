@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Admin {
 	private Input input = new Input();
 	private FileHandler file = new FileHandler();
-	private Boolean inputValid;
+	private Boolean inputValid=true;
 	
     private void setInputValid(Boolean inputValid) {
         this.inputValid = inputValid;
