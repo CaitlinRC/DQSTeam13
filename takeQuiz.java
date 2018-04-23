@@ -1,64 +1,97 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+import java.lang.Math;
 // * = answer, - = correct answer
 
 public class takeQuiz {
-  int numberCorrect = 0;
-  int totalAnswers = 0;
-  String restart = "";
-  private Boolean inputValid;
-  private Input in = new Input();
+	int numberCorrect = 0;
+	int totalAnswers = 0;
+  	String restart = "";
+  	private Boolean inputValid;
+  	private Input in = new Input();
   
-  private void setInputValid(Boolean inputValid) {
-      this.inputValid = inputValid;
+  	private void setInputValid(Boolean inputValid) {
+    	this.inputValid = inputValid;
   }
 
-  public takeQuiz() {
-	  // Prompt user for their school and year group
-	  setInputValid(true);
-	  FileHandler files = new FileHandler();
-	  do {
-		  try {
-			  ArrayList<String> quizList = files.getQuizList("Files/quizzes/");
-			  int quizSelection = (Integer.parseInt(in.getQuizSelection(inputValid, quizList)));
-			  String fileName = quizList.get(quizSelection-1);
-			  System.out.println("\nQuiz selected: " + fileName);
-			  Quiz currentQuiz = new Quiz();
-			  currentQuiz = loadQuiz(fileName, files);
-			  for (int i = 0; i < currentQuiz.getQuestions().size(); i++) {
-				  restart = "";
-				  getAnswer(currentQuiz.getQuestions().get(i), i+1);
+public takeQuiz() {
+	// Prompt user for their school and year group
+  	StudentStatistics studentStatistics;
+    double timeStartStudent;
+    double timeTakenStudent;
+    double timeStartQuestion;
+    double[] timeTakenPerQuestion = new double[10];
+	setInputValid(true);
+	FileHandler files = new FileHandler();
+	do {
+		try {
+			ArrayList<String> quizList = files.getQuizList("Files/quizzes/");
+			int quizSelection = (Integer.parseInt(in.getQuizSelection(inputValid, quizList)));
+			String fileName = quizList.get(quizSelection-1);
+			System.out.println("\nQuiz selected: " + fileName);
+			Quiz currentQuiz = new Quiz();
+			currentQuiz = loadQuiz(fileName, files);
+			timeStartStudent = System.currentTimeMillis();
+			for (int i = 0; i < currentQuiz.getQuestions().size(); i++) {
+				timeStartQuestion = System.currentTimeMillis();
+				restart = "";
+				getAnswer(currentQuiz.getQuestions().get(i), i + 1);
+			  	if (restart.equals("0")) {
+					i = -1;
+				  	numberCorrect = 0;
+				 	totalAnswers = 0;
+				  	System.out.println("\nRestarting " + fileName);
+			  	}
+			  	timeTakenPerQuestion[i] = Math.round((System.currentTimeMillis() - timeStartQuestion) / 1000);
+		  	}
 
-				  if (restart.equals("0")) {
-					  i = -1;
-					  numberCorrect = 0;
-					  totalAnswers = 0;
-					  System.out.println("\nRestarting " + fileName);
-				  }
-				  // Do whatever you want with statistics here I think? (like increment correct answers if correct == true)
-			  }
+		  	timeTakenStudent = Math.round((System.currentTimeMillis() - timeStartStudent) / 1000);
 
-			  System.out.println("\nQuiz Finished!");
-			  System.out.println("Your Score: " + numberCorrect + "/" + totalAnswers + "\n"); // produces score if someone finished the queue
-		  }
-		  catch(Exception e) {
-			  setInputValid(false);
-		  }
+   			studentStatistics = new StudentStatistics(numberCorrect, timeTakenStudent, timeTakenPerQuestion);
+
+		  	System.out.println("\nQuiz Finished!\n");
+		  	try {TimeUnit.SECONDS.sleep(1);} catch(InterruptedException ex) {}
+		  	displayStudentStatistics(studentStatistics, currentQuiz.getQuestions().size());
+
+	  	} catch(Exception e) {
+	  		setInputValid(false);
+		}
 	  } while(!inputValid);
   }
 
-  public Quiz loadQuiz(String fileName, FileHandler files) {
-	  Quiz currentQuiz = new Quiz();
-	  try {
-		  currentQuiz = files.readFromFile(fileName);
-	  } catch (IOException e) {
-		  System.out.println("Sorry there was a problem");
-		  e.printStackTrace();
-	  }
-	  return currentQuiz;
-  }
+  public void displayStudentStatistics(StudentStatistics studentStatistics, int quiz_length) {
+        int numberCorrect = studentStatistics.getNumberCorrect();
+        double timeTaken = studentStatistics.getTimeTaken();
+        double[] timeTakenPerQuestion = studentStatistics.getTimeTakenPerQuestion();
+        double averageTimePerQuestion = studentStatistics.getAverageTimePerQuestion();
 
-  public boolean getAnswer(Question question, int questionNumber) {
+        System.out.println("Your score was: " + numberCorrect + "\n");
+        try {TimeUnit.SECONDS.sleep(1);} catch(InterruptedException ex) {}
+        System.out.println("Your time was: " + timeTaken + " seconds\n");
+        try {TimeUnit.SECONDS.sleep(1);} catch(InterruptedException ex) {}
+
+        for (int i = 0; i < quiz_length; i++) {
+            System.out.println("For question " + Integer.toString(i + 1) + " you took " + timeTakenPerQuestion[i] + " seconds");
+            try {TimeUnit.MILLISECONDS.sleep(500);} catch(InterruptedException ex) {}
+        }
+
+        System.out.println("\nYour average time per question was: " + averageTimePerQuestion);
+        try {TimeUnit.SECONDS.sleep(1);} catch(InterruptedException ex) {}
+    }
+
+public Quiz loadQuiz(String fileName, FileHandler files) {
+	Quiz currentQuiz = new Quiz();
+	try {
+		currentQuiz = files.readFromFile(fileName);
+	} catch (IOException e) {
+		System.out.println("Sorry there was a problem");
+		e.printStackTrace();
+	}
+	return currentQuiz;
+}
+
+public boolean getAnswer(Question question, int questionNumber) {
     System.out.print("\nQuestion " + questionNumber + ":\n" + question);
     totalAnswers += 1;
     Boolean correct = false;

@@ -31,6 +31,10 @@ public class Quiz {
 	public void setQuestions(ArrayList<Question> questions) {
 		this.questions = questions;
 	}
+
+	public int getSize() {
+		return this.questions.size();
+	}
 	
 	public void addQuestion(Question question) {
 		questions.add(question);
@@ -48,10 +52,17 @@ public class Quiz {
     public Quiz copy() {
     	Quiz quizCopy = new Quiz();
     	quizCopy.setTitle(getTitle());
-    	ArrayList<Question> questionsCopy = new ArrayList<Question>();
         for(int i = 0; i < questions.size(); ++i) {
-        	questionsCopy.add(questions.get(i).copy());
+        	quizCopy.addQuestion(questions.get(i).copy());
         }
         return quizCopy;
+    }
+    
+    public String displayQuestions() {
+    	StringBuffer temp = new StringBuffer();
+    	for (int i = 0; i < questions.size(); ++i) {
+    		temp.append((i+1) + ". " + getQuestions().get(i).getQuestionText()+ "\n");
+    	}
+		return temp.toString();
     }
 }

@@ -26,7 +26,7 @@ public class AdminAccount {
 	}
 
 	public void setPassword(String password) {
-		if(password.length()<6){
+		if(password.length()>=6){
 			this.password = password;
 		}
 		else {

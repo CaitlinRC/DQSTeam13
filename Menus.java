@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Menus {
 	private Input input = new Input();
 	private Boolean inputValid;
@@ -60,49 +62,61 @@ public class Menus {
     // Admin menu
     public void adminMenu() {
     	switch (input.adminMenu(inputValid)) {
-    		// Add a new quiz
-	    	case "1":
-	    		quiz = new Quiz();
-	    		quiz.setTitle(admin.addNewQuiz());
-	    		setMenu("adminQuiz");
-	    		// call method for adding new quiz
-	    		break;
-	    	// Edit an existing quiz
-	    	case "2":
-	    		quiz = admin.loadQuiz(admin.selectExistingQuizFile());
-	    		setMenu("adminQuiz");
-	    		// call method for editing quiz
-	    		break;
-	    	case "3":
-	    		admin.addAdmin();
-	    		// call method for new admin
-	    		break;	    		
-	    	case "4":
-	    	//This function is for calling for a new school to be added
-	    		AddingSchool addingschool = new AddingSchool();
-	    		addingschool.Added();
-	    		break;
-
-	    	case "5":
-	    	//this functions displays all current people inside of the list
-	    		DisplaySchool displayschool = new DisplaySchool();
-	    		displayschool.Display();
-	    		break;
-	    	// Handle invalid input		    		
-	    	// Logout
-	    	case "6":
-	    		setMenu("main");
-	    		break;
-
-	    	default:
-	    		setInputValid(false);
-	    		break; 
+    	// Add a new quiz
+    	case "1":
+    		quiz = new Quiz();
+    		do {
+    			switch (input.addQuiz(inputValid)) {
+    			// Brand new quiz
+    			case "1":
+    				quiz = new Quiz();
+    				quiz.setTitle(admin.addNewQuiz());
+    				setMenu("adminQuiz");
+    				setInputValid(true);
+    				break;
+    				// Copy quiz
+    			case "2":
+    				quiz = admin.addNewQuizCopy();
+    				setMenu("adminQuiz");
+    				setInputValid(true);
+    				break;
+    			default:
+    				setInputValid(false);
+    				break;
+    			}
+    		} while (!inputValid);
+    		break;
+    	// Edit an existing quiz
+    	case "2":
+    		quiz = admin.loadQuiz(admin.selectExistingQuizFile());
+    		setMenu("adminQuiz");
+    		break;
+    	// Add new admin account
+    	case "3":
+    		admin.addAdmin();
+    		break;
+    	// New schoool
+    	case "4":
+    		admin.addSchool();
+    		break;
+    	// Display schools
+    	case "5":
+    		file.readSchoolsFile();
+    		break;
+    	// Logout
+    	case "6":
+    		setMenu("main");
+    		break;
+    	// Handle invalid input
+    	default:
+    		setInputValid(false);
+    		break;
     	}
     }
     
 	// Admin quiz dashboard
 	public void adminQuizMenu() {
-	    	switch (input.adminQuizMenu(inputValid, quiz.getTitle())) {
+	    	switch (input.adminQuizMenu(inputValid, quiz)) {
 			// Add a new question
 	    	case "1":
 	    		admin.addQuestion(quiz);

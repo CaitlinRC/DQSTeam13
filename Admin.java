@@ -1,11 +1,17 @@
+import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Admin {
 	private Input input = new Input();
 	private FileHandler file = new FileHandler();
-	private Boolean inputValid;
+	private Boolean inputValid=true;
+
+	public Admin() {
+	}
 	
     private void setInputValid(Boolean inputValid) {
         this.inputValid = inputValid;
@@ -38,7 +44,7 @@ public class Admin {
 		// Admin name
 		do {
 			try {
-				admin.setAdminID(input.getAdminPassword(inputValid));
+				admin.setAdminName(input.getAdminName(inputValid));
 				setInputValid(true);
 			}
     		catch(IllegalArgumentException e) {
@@ -73,6 +79,31 @@ public class Admin {
 		return filename;
 	}
 	
+	public Quiz addNewQuizCopy() {
+		setInputValid(true);
+		Quiz quiz = new Quiz();
+		ArrayList<String> quizList = file.getQuizList("Files/quizzes/");
+		do {
+			try {
+				String quizSelection = input.getQuizToCopy(inputValid, quizList);
+				Quiz quizToCopy = new Quiz();
+				quizToCopy = loadQuiz(quizList.get(Integer.parseInt(quizSelection)-1));
+				quiz = quizToCopy.copy();
+				setInputValid(true);
+			} catch (Exception e) {
+				setInputValid(false);
+			}
+		} while (!inputValid);
+		String filename = input.getNewQuizName();
+		quiz.setTitle(filename);
+		  try {
+			  file.saveQuiz(quiz);
+		  } catch (IOException e) {
+			  System.out.println("\nUnable to add quiz.");
+		  }
+		return quiz;
+	}
+	
 	public String selectExistingQuizFile() {
 		FileHandler file = new FileHandler(); 
 		ArrayList<String> quizList = file.getQuizList("Files/quizzes/"); //reused a code from FileHandler.java to obtain all exisitng files
@@ -95,30 +126,41 @@ public class Admin {
 	  }
 	  
 	  public void editQuestion(Quiz quiz) {
-		  Question question = quiz.getQuestions().get(Integer.parseInt(input.editQuestion())-1);
-		  question.setQuestionText(input.getNewQuizQuestion());
-		  question.getAnswerList().clear();
-		  String numberOfAnswers = input.getNewQuizAnswers();
-		  boolean _rightAnswerSelected = false;
-		  for (int i = 0; i < Integer.parseInt(numberOfAnswers); i++) {
-			  Answer answer = new Answer();
-			  answer.setTitle(input.getAnswer(i + 1)); 
-			  answer.setCorrect(false);
-			  if (_rightAnswerSelected == false) {
-				  if (input.rightAnswer().equals("y")) {
-					  answer.setCorrect(true);
-					  _rightAnswerSelected = true;
-				  }
-			  }
-			  question.addAnswer(answer);
-		  }
-		  try {
-			  file.saveQuiz(quiz);
-			  System.out.println("\nSuccessfully added a question into the database.");
-		  } catch (IOException e) {
-			  System.out.println("\nUnable to add question into the database.");
-		  }
 		  setInputValid(true);
+		  do {
+			  try {
+					int selection = (Integer.parseInt(input.editQuestion(inputValid, quiz)));
+					if (selection == 0) {
+						return;
+					}
+				  Question question = quiz.getQuestions().get(selection - 1);
+				  question.setQuestionText(input.getNewQuizQuestion());
+				  question.getAnswerList().clear();
+				  String numberOfAnswers = input.getNewQuizAnswers();
+				  boolean _rightAnswerSelected = false;
+				  for (int i = 0; i < Integer.parseInt(numberOfAnswers); i++) {
+					  Answer answer = new Answer();
+					  answer.setTitle(input.getAnswer(i + 1)); 
+					  answer.setCorrect(false);
+					  if (_rightAnswerSelected == false) {
+						  if (input.rightAnswer().equals("y")) {
+							  answer.setCorrect(true);
+							  _rightAnswerSelected = true;
+						  }
+					  }
+					  question.addAnswer(answer);
+				  }
+				  try {
+					  file.saveQuiz(quiz);
+					  System.out.println("\nSuccessfully added a question into the database.");
+				  } catch (IOException e) {
+					  System.out.println("\nUnable to add question into the database.");
+				  }
+				  setInputValid(true);}
+			  catch (Exception e) {
+				  setInputValid(false);
+			  }
+		  }while(!inputValid);
 	  }
 
 	public void addQuestion(Quiz quiz) {
@@ -149,27 +191,68 @@ public class Admin {
 	}
 	
 	public void deleteQuestion(Quiz quiz) {
-			do {
-				try {
-					int selection = (Integer
-							.parseInt(input.deleteQuestion(inputValid, quiz.getQuestions().size())));
-					try {
-						quiz.deleteQuestionByIndex(selection - 1);
-					} catch (IndexOutOfBoundsException e) {
-						System.out.println("\nQuestion does not exist. Therefore, can not be deleted.\n");
-					}
-					setInputValid(true);
-				} catch (Exception e) {
-					setInputValid(false);
-				}
-			} while (!inputValid);
-			System.out.println(quiz.getQuestions());
-			try {
-				file.saveQuiz(quiz);
-				System.out.println("\nSuccessfully deleted question.");
-			} catch (IOException e) {
-				System.out.println("\nUnable to delete question.");
-			}
 		setInputValid(true);
+		do {
+			try {
+				int selection = (Integer.parseInt(input.deleteQuestion(inputValid, quiz)));
+				if (selection == 0) {
+					return;
+				}
+					quiz.deleteQuestionByIndex(selection - 1);
+				setInputValid(true);
+			} catch (Exception e) {
+				setInputValid(false);
+			}
+		} while (!inputValid);
+		try {
+			file.saveQuiz(quiz);
+			System.out.println("\nSuccessfully deleted question.");
+		} catch (IOException e) {
+			System.out.println("\nUnable to delete question.");
+		}
+		setInputValid(true);
+	}
+
+	public void displayClientStatistics() {
+		System.out.println("The total number of correct answers on this client is: ");
+		System.out.println("The average number of answers correct is: ");
+		System.out.println("The average time taken per quiz is: ");
+		for (int i = 0; i < 10; i++) {
+			System.out.println("The average time taken for question " + Integer.toString(i + 1) + " is: ");
+		}
+	}
+	
+	public void addSchool() {
+		Scanner input = new Scanner(System.in);
+		School school = new School();
+
+		System.out.println("Enter the name of the school you wish to enter: ");
+		String name = input.nextLine();
+		while(!name.matches("[a-zA-Z ]+")){
+			System.out.println("Enter a valid name!");
+			name = input.nextLine();
+		}
+		school.setName(name);
+
+		System.out.println("Enter the school year of the students: ");
+		String year = input.nextLine();
+		while(!year.matches("[0-9]+")){
+			System.out.println("Enter a valid year!");
+			year = input.nextLine();
+		}
+		school.setYear(year);
+
+		try{
+			FileWriter writer = new FileWriter("Files/admin/Schools.txt", true);
+			BufferedWriter bw = new BufferedWriter(writer);
+			PrintWriter out = new PrintWriter(writer);
+
+			bw.write(name + "," + "Year:" + year);
+			bw.newLine();
+			bw.close();
+		}
+		catch (Exception e) {
+			System.out.println(e);
+		}
 	}
 }
