@@ -86,9 +86,8 @@ public class Question {
     public Question copy() {
     	Question questionCopy = new Question();
     	questionCopy.setQuestionText(getQuestionText());
-    	ArrayList<Answer> answerListCopy = new ArrayList<Answer>();
         for(int i = 0; i < answerList.size(); ++i) {
-        	answerListCopy.add(answerList.get(i).copy());
+        	questionCopy.addAnswer(answerList.get(i).copy());
         }
         return questionCopy;
     }

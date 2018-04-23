@@ -48,9 +48,8 @@ public class Quiz {
     public Quiz copy() {
     	Quiz quizCopy = new Quiz();
     	quizCopy.setTitle(getTitle());
-    	ArrayList<Question> questionsCopy = new ArrayList<Question>();
         for(int i = 0; i < questions.size(); ++i) {
-        	questionsCopy.add(questions.get(i).copy());
+        	quizCopy.addQuestion(questions.get(i).copy());
         }
         return quizCopy;
     }

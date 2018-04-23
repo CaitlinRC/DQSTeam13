@@ -73,6 +73,31 @@ public class Admin {
 		return filename;
 	}
 	
+	public Quiz addNewQuizCopy() {
+		setInputValid(true);
+		Quiz quiz = new Quiz();
+		ArrayList<String> quizList = file.getQuizList("Files/quizzes/");
+		do {
+			try {
+				String quizSelection = input.getQuizToCopy(inputValid, quizList);
+				Quiz quizToCopy = new Quiz();
+				quizToCopy = loadQuiz(quizList.get(Integer.parseInt(quizSelection)-1));
+				quiz = quizToCopy.copy();
+				setInputValid(true);
+			} catch (Exception e) {
+				setInputValid(false);
+			}
+		} while (!inputValid);
+		String filename = input.getNewQuizName();
+		quiz.setTitle(filename);
+		  try {
+			  file.saveQuiz(quiz);
+		  } catch (IOException e) {
+			  System.out.println("\nUnable to add quiz.");
+		  }
+		return quiz;
+	}
+	
 	public String selectExistingQuizFile() {
 		FileHandler file = new FileHandler(); 
 		ArrayList<String> quizList = file.getQuizList("Files/quizzes/"); //reused a code from FileHandler.java to obtain all exisitng files

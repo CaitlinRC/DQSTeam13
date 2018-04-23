@@ -156,6 +156,32 @@ public class Input {
 		return cleanseInput(in.nextLine());
     }
     
+    public String addQuiz(Boolean inputValid) {
+    	if(inputValid) {
+    		System.out.println("\nPlease select one of the following options:");
+    	}
+    	else {
+    		System.out.println("\nPlease select a valid option:");
+    	}
+		System.out.println("1. Create a brand new quiz");
+		System.out.println("2. Copy an existing quiz");
+		return cleanseInput(in.nextLine());
+    }
+    
+    public String getQuizToCopy(Boolean inputValid, ArrayList<String> quizList) {
+    	if(inputValid) {
+    		System.out.println("\nPlease select one of the following options:");
+    	}
+    	else {
+    		System.out.println("\nPlease select a valid option:");
+    	}
+    	// Display an option for each of the available quizzes
+    	for (int i = 0; i < quizList.size(); ++i) {
+    		System.out.println((i+1) + ". " + quizList.get(i));
+    	}
+		return cleanseInput(in.nextLine());
+    }
+    
     /* -------------- Cleanse Input -------------- */
     private String cleanseInput(String input) {
 		String cleansed = input.trim();
