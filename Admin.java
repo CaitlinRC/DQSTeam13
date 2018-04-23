@@ -6,6 +6,9 @@ public class Admin {
 	private Input input = new Input();
 	private FileHandler file = new FileHandler();
 	private Boolean inputValid;
+
+	public Admin() {
+	}
 	
     private void setInputValid(Boolean inputValid) {
         this.inputValid = inputValid;
@@ -201,5 +204,14 @@ public class Admin {
 				System.out.println("\nUnable to delete question.");
 			}
 		setInputValid(true);
+	}
+
+	public void displayClientStatistics() {
+		System.out.println("The total number of correct answers on this client is: ");
+		System.out.println("The average number of answers correct is: ");
+		System.out.println("The average time taken per quiz is: ");
+		for (int i = 0; i < 10; i++) {
+			System.out.println("The average time taken for question " + Integer.toString(i + 1) + " is: ");
+		}
 	}
 }

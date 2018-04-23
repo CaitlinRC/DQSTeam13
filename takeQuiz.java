@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 import java.lang.Math;
 // * = answer, - = correct answer
 
@@ -17,16 +18,10 @@ public class takeQuiz {
 public takeQuiz() {
 	// Prompt user for their school and year group
   	StudentStatistics studentStatistics;
-    ClientStatistics ClientStatistics;
     double timeStartStudent;
     double timeTakenStudent;
     double timeStartQuestion;
     double[] timeTakenPerQuestion = new double[10];
-    double timeTakenClient = 0;
-    int numberCorrectClient = 0;
-    int timesQuizTakenClient = 0;
-    int minNumberCorrect = 0;
-    int maxNumberCorrect = 0;
 	setInputValid(true);
 	FileHandler files = new FileHandler();
 	do {
@@ -41,28 +36,22 @@ public takeQuiz() {
 			for (int i = 0; i < currentQuiz.getQuestions().size(); i++) {
 				timeStartQuestion = System.currentTimeMillis();
 				restart = "";
-				getAnswer(currentQuiz.getQuestions().get(i), i+1);
+				getAnswer(currentQuiz.getQuestions().get(i), i + 1);
 			  	if (restart.equals("0")) {
 					i = -1;
 				  	numberCorrect = 0;
 				 	totalAnswers = 0;
 				  	System.out.println("\nRestarting " + fileName);
 			  	}
-			  	timeTakenPerQuestion[i] = Math.round((timeStartQuestion - System.currentTimeMillis()) * 1000);
+			  	timeTakenPerQuestion[i] = Math.round((System.currentTimeMillis() - timeStartQuestion) / 1000);
 		  	}
 
-		  	timeTakenStudent = Math.round((System.currentTimeMillis() - timeStartStudent) * 1000);
-
-			System.out.println("Quiz Finished!");
-   			timeTakenClient += timeTakenStudent;
-   			numberCorrectClient += numberCorrect;
-			timesQuizTakenClient += 1;
-
-  			minNumberCorrect = numberCorrect < minNumberCorrect ? numberCorrect : minNumberCorrect;
-   			maxNumberCorrect = numberCorrect > maxNumberCorrect ? numberCorrect : maxNumberCorrect;
+		  	timeTakenStudent = Math.round((System.currentTimeMillis() - timeStartStudent) / 1000);
 
    			studentStatistics = new StudentStatistics(numberCorrect, timeTakenStudent, timeTakenPerQuestion);
-		  	System.out.println("\nQuiz Finished!");
+
+		  	System.out.println("\nQuiz Finished!\n");
+		  	try {TimeUnit.SECONDS.sleep(1);} catch(InterruptedException ex) {}
 		  	displayStudentStatistics(studentStatistics);
 
 	  	} catch(Exception e) {
@@ -77,12 +66,16 @@ public takeQuiz() {
         double[] timeTakenPerQuestion = studentStatistics.getTimeTakenPerQuestion();
         double averageTimePerQuestion = studentStatistics.getAverageTimePerQuestion();
 
-        System.out.println("Your score is: " + numberCorrect);
-        System.out.println("Your time was: " + timeTaken + "seconds");
+        System.out.println("Your score was: " + numberCorrect + "\n");
+        try {TimeUnit.SECONDS.sleep(1);} catch(InterruptedException ex) {}
+        System.out.println("Your time was: " + timeTaken + " seconds\n");
+        try {TimeUnit.SECONDS.sleep(1);} catch(InterruptedException ex) {}
         for (int i = 0; i < 10; i++) {
             System.out.println("For question " + Integer.toString(i + 1) + " you took " + timeTakenPerQuestion[i] + " seconds");
+            try {TimeUnit.MILLISECONDS.sleep(500);} catch(InterruptedException ex) {}
         }
-        System.out.println("Your average time per question was: " + averageTimePerQuestion);
+        System.out.println("\nYour average time per question was: " + averageTimePerQuestion);
+        try {TimeUnit.SECONDS.sleep(1);} catch(InterruptedException ex) {}
     }
 
 public Quiz loadQuiz(String fileName, FileHandler files) {

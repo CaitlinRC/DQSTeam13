@@ -13,7 +13,7 @@ public class Input {
 	// Main menu
     public String mainMenu(Boolean inputValid) {
     	if(inputValid) {
-			System.out.println("Please select one of the following options:");
+			System.out.println("\nPlease select one of the following options:");
 		}
 		else {
 			System.out.println("\nPlease select a valid menu option:");
