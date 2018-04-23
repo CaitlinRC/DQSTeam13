@@ -53,13 +53,9 @@ public takeQuiz() {
 
 		  	System.out.println("\nQuiz Finished!\n");
 		  	try {TimeUnit.SECONDS.sleep(1);} catch(InterruptedException ex) {}
-<<<<<<< HEAD
 		  	displayStudentStatistics(studentStatistics, quizLength);
-=======
 		  	displayStudentStatistics(studentStatistics, currentQuiz.getQuestions().size());
 		  	setInputValid(true);
->>>>>>> 46eec5a5308a449f1b88b2fe5c0f6dffdc61c674
-
 	  	} catch(Exception e) {
 	  		setInputValid(false);
 		}
