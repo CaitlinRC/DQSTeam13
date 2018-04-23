@@ -13,7 +13,7 @@ public class Input {
 	// Main menu
     public String mainMenu(Boolean inputValid) {
     	if(inputValid) {
-			System.out.println("Please select one of the following options:");
+			System.out.println("\nPlease select one of the following options:");
 		}
 		else {
 			System.out.println("\nPlease select a valid menu option:");
@@ -160,15 +160,10 @@ public class Input {
     		System.out.println("\nPlease select a question to edit [choose between: 1 - " + questions + "] (Enter 0 to cancel):");
     	}
     	else {
-    		System.out.println("\nInvalid Selection.\nPlease select a question to edit (choose between: 1 - " + questions + "): ");
+    		System.out.println("\nInvalid Selection.\nPlease select a question to edit [choose between: 1 - " + questions + "] (Enter 0 to cancel):");
     	}
     	// Display an option for each of the questions
     	System.out.println(quiz.displayQuestions());
-		return cleanseInput(in.nextLine());
-    }
-    
-    public String editQuestion2() {
-System.out.println("\nPlease select a question to edit");
 		return cleanseInput(in.nextLine());
     }
     

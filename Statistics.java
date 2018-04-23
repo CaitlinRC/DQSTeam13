@@ -2,6 +2,8 @@ import java.lang.Math;
 import java.util.stream.DoubleStream;
 import javax.swing.*;
 
+// Base class to be inherited from.
+
 public class Statistics {
 	protected int numberCorrect;
 	protected double timeTaken;
@@ -27,14 +29,10 @@ public class Statistics {
 		this.timeTaken = timeTaken;
 	}
 
-	public Double getAverage(double n, int m) {
+	public double getAverage(double n, int m) {
 		double average = Math.round((n / m) * 100.0) / 100.0;
 		return average;
 	}
-
-	/*public int getMode() {
-
-	}*/
 
 	public int getRange(int n, int m) {
 		return m - n;

@@ -7,8 +7,8 @@ public class DisplaySchool {
 
 	public void Display() {
 	try {
-		File file = new File("Schools.txt");
-		FileReader filereader = new FileReader("Schools.txt");
+		File file = new File("Files/admin", "Schools.txt");
+		FileReader filereader = new FileReader(file);
 		BufferedReader buff = new BufferedReader(filereader);
 		StringBuffer stringbuff = new StringBuffer();
 		String line;
