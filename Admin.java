@@ -187,6 +187,7 @@ public class Admin {
 						quiz.deleteQuestionByIndex(selection - 1);
 					} catch (IndexOutOfBoundsException e) {
 						System.out.println("\nQuestion does not exist. Therefore, can not be deleted.\n");
+						return;
 					}
 					setInputValid(true);
 				} catch (Exception e) {
