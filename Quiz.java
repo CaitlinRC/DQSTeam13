@@ -57,4 +57,12 @@ public class Quiz {
         }
         return quizCopy;
     }
+    
+    public String displayQuestions() {
+    	StringBuffer temp = new StringBuffer();
+    	for (int i = 0; i < questions.size(); ++i) {
+    		temp.append((i+1) + ". " + getQuestions().get(i).getQuestionText()+ "\n");
+    	}
+		return temp.toString();
+    }
 }
