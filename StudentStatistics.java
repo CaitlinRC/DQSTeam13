@@ -19,7 +19,7 @@ public class StudentStatistics extends Statistics {
 	}
 
 	public double getAverageTimePerQuestion() {
-		return getAverage(timeTaken, 10);
+		return getAverage(timeTakenPerQuestion);
 	}
 } 
 
